@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+
 <html>
+
     <head>
         <script src="vue.js"></script>
         <script>Vue.config.productionTip = false</script>
@@ -9,8 +11,9 @@
     <body>
         <div id="test">
           <h1>{{name}}</h1>
-          <input :value="name">
-          <input v-model="name">
+          <input :value="name"><br>
+          <input v-model="name"><br>
+          <button @click="dosth">btn</button>
         </div>
     </body>
     <script>
@@ -19,8 +22,13 @@
             el:'#test',
             data:{  
                 name:'kk'
-            }
-        
+            },
+            methods: {
+              dosth(){
+                console.log('sth happens.')
+              }  
+            },
+            
         })
         
     </script>
