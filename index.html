@@ -11,26 +11,32 @@
     <body>
         <div id="test">
           <h1>{{name}}</h1>
-          <input :value="name"><br>
+          <h2>{{age}}</h2>
+          
           <input v-model="name"><br>
           <button @click="dosth">btn</button>
         </div>
     </body>
     <script>
         Vue.config.productionTip = false
-        new Vue({
+        const vm = new Vue({
             el:'#test',
             data:{  
-                name:'kk'
+                name:'kk',
+                age:20
             },
             methods: {
               dosth(){
                 console.log('sth happens.')
               }  
-            },
+            }
             
         })
-        
+        vm.$watch('name',{
+            handler(val, oldval){
+                console.log('watched',val,oldval)
+            }
+        })
     </script>
     
 </html>
