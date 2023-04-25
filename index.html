@@ -11,10 +11,10 @@
     <body>
         <div id="test">
           <h1>{{name}}</h1>
-          <h2>{{age}}</h2>
           
+
           <input v-model="name"><br>
-          <button @click="dosth">btn</button>
+
         </div>
     </body>
     <script>
@@ -23,20 +23,21 @@
             el:'#test',
             data:{  
                 name:'kk',
-                age:20
+                age:20,
             },
-            methods: {
-              dosth(){
-                console.log('sth happens.')
-              }  
+            watch:{
+                name(val){
+                    // 使用箭头函数，是vm调用这个函数
+                    // 如果是setTimeout function，是window调用这个函数
+                   setTimeout(() => {
+                    console.log('watch',this)
+                    this.name = val
+                   }, 1000);
+                }
             }
             
         })
-        vm.$watch('name',{
-            handler(val, oldval){
-                console.log('watched',val,oldval)
-            }
-        })
+      
     </script>
     
 </html>
