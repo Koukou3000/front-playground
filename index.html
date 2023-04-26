@@ -20,14 +20,28 @@
     <body>
         <div id="test">
           <div>{{name}}</div>
-          
           <input v-model="name"><br>
+          <br>
           <div v-bind:class="arr">样式测试</div>
           <div :class="obj">样式测试</div>
-
-          
           <div :style="obj2">样式测试</div>
+          <br>
+
+          <div v-show="isDisplay">显示我</div>
+          <div v-if="isDisplay">显示我</div>
+          <br>
+
+        <div v-for="(o,idx) in items" :key="idx">
+            {{o.id}}=={{o.name}}
         </div>
+        <br>
+        <div v-for="(v,k) in car" >
+             {{k}} == {{v}}
+        </div>
+
+
+        </div>
+        
     </body>
     <script>
         Vue.config.productionTip = false
@@ -35,8 +49,8 @@
             el:'#test',
             data:{  
                 name:'kk',
-                age:20,
-                arr:['class1','class2'], // 来自上方style css
+                // 来自上方style css
+                arr:['class1','class2'], 
                 obj:{
                     class1:true,
                     class2:true
@@ -45,7 +59,20 @@
                     fontSize: '50px',
                     backgroundColor: '#ccc',
                     fontWeight: 'bold'
+                },
+                isDisplay: true, // 显示我
+                //
+                items:[
+                    {id:1,name:'kk'},
+                    {id:2,name:'kou'},
+                    {id:3,name:'amogus'},
+                ],
+                car:{
+                    brand:'Auto',
+                    type:'A8',
+                    price:'10,000 USD'
                 }
+
             },
             
 
