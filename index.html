@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 
 <html>
-
     <head>
         <script src="vue.js"></script>
         <script>Vue.config.productionTip = false</script>
+        <style>
+            .class1{
+                font-size: 50px;
+                font-weight: bold;
+            }
+            .class2{
+                background-color: pink;
+                border-radius: 4px;
+            }
+            
+        </style>
     </head>
-
 
     <body>
         <div id="test">
-          <h1>{{name}}</h1>
+          <div>{{name}}</div>
           
-
           <input v-model="name"><br>
+          <div v-bind:class="arr">样式测试</div>
+          <div :class="obj">样式测试</div>
 
+          
+          <div :style="obj2">样式测试</div>
         </div>
     </body>
     <script>
@@ -24,20 +36,24 @@
             data:{  
                 name:'kk',
                 age:20,
-            },
-            watch:{
-                name(val){
-                    // 使用箭头函数，是vm调用这个函数
-                    // 如果是setTimeout function，是window调用这个函数
-                   setTimeout(() => {
-                    console.log('watch',this)
-                    this.name = val
-                   }, 1000);
+                arr:['class1','class2'], // 来自上方style css
+                obj:{
+                    class1:true,
+                    class2:true
+                },
+                obj2:{
+                    fontSize: '50px',
+                    backgroundColor: '#ccc',
+                    fontWeight: 'bold'
                 }
-            }
+            },
             
+
         })
-      
+        vm.$watch('name',function(val){
+            this.name = val
+            console.log(this)        
+        })
     </script>
     
 </html>
