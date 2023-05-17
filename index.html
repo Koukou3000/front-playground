@@ -5,8 +5,11 @@
         <script src="vue.js"></script>
         <script>Vue.config.productionTip = false</script>
         <style>
+            body{
+                background: #ccc;
+            }
             .class1{
-                font-size: 50px;
+                font-size: 20px;
                 font-weight: bold;
             }
             .class2{
@@ -19,25 +22,20 @@
 
     <body>
         <div id="test">
-          <div>{{name}}</div>
-          <input v-model="name"><br>
-          <br>
-          <div v-bind:class="arr">样式测试</div>
-          <div :class="obj">样式测试</div>
-          <div :style="obj2">样式测试</div>
-          <br>
 
-          <div v-show="isDisplay">显示我</div>
-          <div v-if="isDisplay">显示我</div>
-          <br>
-
-        <div v-for="(o,idx) in items" :key="idx">
-            {{o.id}}=={{o.name}}
-        </div>
-        <br>
-        <div v-for="(v,k) in car" >
-             {{k}} == {{v}}
-        </div>
+            <div v-bind:class="arr">33 列表排序</div>
+            <div :class="obj">样式测试</div>
+            <div :style="obj2">样式测试</div>
+            
+            
+            <input v-model="keyword" type="text"/>
+            <button v-on:click="sortType = 1">升序</button>
+            <button v-on:click="sortType = 2">降序</button>
+            <div v-for="(o,idx) in filt_items" :key="o.id">
+                {{o.id}}--{{o.name}}
+            </div>
+            <br>
+   
 
 
         </div>
@@ -47,40 +45,48 @@
         Vue.config.productionTip = false
         const vm = new Vue({
             el:'#test',
-            data:{  
-                name:'kk',
-                // 来自上方style css
+            data:{
+                // 上方style css
                 arr:['class1','class2'], 
                 obj:{
                     class1:true,
                     class2:true
                 },
                 obj2:{
-                    fontSize: '50px',
+                    fontSize: '20px',
                     backgroundColor: '#ccc',
                     fontWeight: 'bold'
                 },
-                isDisplay: true, // 显示我
-                //
                 items:[
-                    {id:1,name:'kk'},
-                    {id:2,name:'kou'},
-                    {id:3,name:'amogus'},
+                    {id:1,name:'guangdong'},
+                    {id:2,name:'shanghai'},
+                    {id:3,name:'henan'},
+                    {id:4,name:'netherland'},
                 ],
-                car:{
-                    brand:'Auto',
-                    type:'A8',
-                    price:'10,000 USD'
-                }
-
+                keyword:'',
+                sortType: 1
+                
             },
+            computed:{
+                filt_items(){
+                    // 先过滤， 再排序
+                    const arr =  this.items.filter((p)=>{ // 数组每个元素都要经过箭头方法，为true则留下
+                        return p.name.indexOf(this.keyword) != -1
+                    })
+                    // sortType == 0  不做处理
+                    // sortType = 1 向下升序
+                    if(this.sortType){
+                        arr.sort((a,b)=>{
+                          return this.sortType === 1 ? a.id-b.id : b.id-a.id
+                        })
+                    }
+                    return arr 
+                }
+            }
             
 
         })
-        vm.$watch('name',function(val){
-            this.name = val
-            console.log(this)        
-        })
+        
     </script>
     
 </html>
