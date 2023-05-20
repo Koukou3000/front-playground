@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+
+    </body>
+    <script>
+        const arr = [2,5,6,45,11,6,9,2] // 去重
+
+        // indexOf + 额外存储空间 
+        function fun1(){
+            let ans = [] 
+            for(let i=0; i<arr.length; i++){
+                if(ans.indexOf(arr[i]) === -1){ // 不存在则加入
+                    ans.push(arr[i])
+                    // console.log(ans)
+                }
+            }
+            return ans
+            
+        }
+
+        // set特性
+        function fun2(){
+            let s = new Set()
+            for(let i=0; i<arr.length; i++){
+                s.add(arr[i])
+            }
+            return s
+        }
+
+        // includes()
+        function fun3(){
+            let ans = []
+            for(let i=0; i<arr.length; i++){
+                if(!ans.includes(arr[i])){ 
+                    ans.push(arr[i])
+                }
+            }
+            return ans
+        }
+
+        function fun4(){
+            let ans = arr.filter(function(val,idx,arr){
+                // 第一次出现位置 等于索引时，说明没有重复， 可以返回
+                return arr.indexOf(val) === idx
+            })
+            return ans
+
+        }
+
+    </script>
+</html>
