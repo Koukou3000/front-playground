@@ -16,31 +16,35 @@
                 background-color: pink;
                 border-radius: 4px;
             }
-            
         </style>
     </head>
+
+
 
     <body>
         <div id="test">
 
-            <div v-bind:class="arr">33 列表排序</div>
-            <div :class="obj">样式测试</div>
-            <div :style="obj2">样式测试</div>
+            <div v-bind:class="arr">35</div>
+            <div :class="obj">styleTEST</div>
+            <div :style="obj2">styleTEST</div>
             
             
             <input v-model="keyword" type="text"/>
-            <button v-on:click="sortType = 1">升序</button>
-            <button v-on:click="sortType = 2">降序</button>
+
+            diff_stu
+            <button v-on:click="sortType = 1">ASC</button>
+            <button v-on:click="sortType = 2">DESC</button>
+            
             <div v-for="(o,idx) in filt_items" :key="o.id">
-                {{o.id}}--{{o.name}}
+            {{o.id}}--{{o.name}}
             </div>
             <br>
-   
-
-
         </div>
         
     </body>
+
+
+
     <script>
         Vue.config.productionTip = false
         const vm = new Vue({
