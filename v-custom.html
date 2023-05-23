@@ -27,16 +27,17 @@
                 }
             },
             directives:{
-                // 初次绑定 & 模板test2被重新解析时调用
+                // bind & update时调用（简写形式）
                 call(element,binding){
                     element.innerHTML = 'Kadokura '+binding.value // 组件挂载前后都有innerHTML
                 },
-                // 绑定模板和data内容, 将dom元素插入到页面, 再聚焦
+                // 需求：赋值并聚焦【如果用函数方式则不够细致】
                 // fbind(element,binding){
                 //     element.value = binding.value
-                //     element.focus() // 挂载后调用才有反应，函数方式不可行
+                //     element.focus() // 挂载后调用才有反应，函数方式实现不了
                 // },
                 fbind:{
+                    //绑定模板和data内容, 将dom元素插入到页面, 再聚焦
                     bind(element,binding){
                         element.value = binding.value
                     },
@@ -45,7 +46,7 @@
                     },
                     update(element,binding){
                         element.value = binding.value
-                        element.focus()
+                         
                     }
                 }
             }
