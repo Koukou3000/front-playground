@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        <div id="test2">
+            <!-- <span v-text="name"></span> -->
+            <span v-call="name"></span>
+            
+        </div>
+
+
+    </body>
+    <script>
+        Vue.config.productionTip = false
+        new Vue({
+            el:"#test2",
+            data:{
+                name:'kou'
+            },
+            directives:{
+                // 初次绑定 & 模板test2被重新解析时调用
+                call(element,binding){
+                    element.innerHTML = 'Kadokura '+binding.value
+                }
+            }
+        })
+    </script>
+</html>

@@ -25,20 +25,20 @@
         <div id="test">
 
             <div v-bind:class="arr">35</div>
-            <div :class="obj">styleTEST</div>
-            <div :style="obj2">styleTEST</div>
+            <div v-bind:class="obj">styleTEST</div>
+            <div v-bind:style="obj2">styleTEST</div>
             
-            
+            <!-- computed使用 -->
             <input v-model="keyword" type="text"/>
-
-            diff_stu
+            diff
             <button v-on:click="sortType = 1">ASC</button>
             <button v-on:click="sortType = 2">DESC</button>
-            
             <div v-for="(o,idx) in filt_items" :key="o.id">
-            {{o.id}}--{{o.name}}
+                {{o.id}}--{{o.name}}
             </div>
             <br>
+
+            {{list}}
         </div>
         
     </body>
@@ -68,7 +68,8 @@
                     {id:4,name:'netherland'},
                 ],
                 keyword:'',
-                sortType: 1
+                sortType: 1,
+                list: [1,2,3,4,5]
                 
             },
             computed:{
@@ -86,7 +87,8 @@
                     }
                     return arr 
                 }
-            }
+            },
+            
             
 
         })
