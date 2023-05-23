@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="vue.js"></script>
+        <style>
+            body{
+                background-color: black;
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div id="test3">
+
+
+            <h2 v-bind:style="{opacity:opacity}">WELCOME!</h2>
+        </div>
+    </body>
+    <script>
+        Vue.config.productionTip = false
+        new Vue({
+            el:'#test3',
+            data:{
+                opacity:1,
+
+            },
+            mounted(){
+                
+                setInterval(()=>{
+                    
+                    this.opacity -= 0.01
+                    if(this.opacity<=0) {
+                        this.opacity = 1
+                    }
+                },20)
+            }
+            
+        })
+        // setInterval(()=>{
+        //     vm.opacity -= 0.01
+        //     if(vm.opacity<=0) 
+        //         vm.opacity = 1
+        // },20)
+    </script>
+</html>
