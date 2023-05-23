@@ -6,8 +6,10 @@
     <body>
         <div id="test2">
             <!-- <span v-text="name"></span> -->
-            <span v-call="name"></span>
-            
+            <span v-call="name"></span><br>
+            <button @click="change">add</button>
+            <!---->
+            <input v-fbind:value="name">
         </div>
 
 
@@ -19,10 +21,32 @@
             data:{
                 name:'kou'
             },
+            methods: {
+                change(){
+                    this.name+='.'
+                }
+            },
             directives:{
                 // 初次绑定 & 模板test2被重新解析时调用
                 call(element,binding){
-                    element.innerHTML = 'Kadokura '+binding.value
+                    element.innerHTML = 'Kadokura '+binding.value // 组件挂载前后都有innerHTML
+                },
+                // 绑定模板和data内容, 将dom元素插入到页面, 再聚焦
+                // fbind(element,binding){
+                //     element.value = binding.value
+                //     element.focus() // 挂载后调用才有反应，函数方式不可行
+                // },
+                fbind:{
+                    bind(element,binding){
+                        element.value = binding.value
+                    },
+                    inserted(element,binding){
+                        element.focus()
+                    },
+                    update(element,binding){
+                        element.value = binding.value
+                        element.focus()
+                    }
                 }
             }
         })
