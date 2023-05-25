@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="vue.js"></script>
+    </head>
+
+    <body>
+        <div id="root">
+            {{name}}
+            <hr>
+            <p1></p1>
+            <p2></p2>
+        </div>
+    </body>
+
+    <script>
+        // 创建组件
+        const p1 = Vue.extend({
+            template:`
+                <div>
+                    <b>{{name}}</b>    
+                    <b>{{age}}</b>
+                </div>
+            `,
+            data(){
+                return {
+                    name:'kou',
+                    age:20
+                }
+            }
+        })
+        const p2 = Vue.extend({
+            template:`
+                <div>
+                    <b>{{name}}</b>    
+                    <b>{{age}}</b>
+                </div>
+            `,
+            data(){
+                return {
+                    name:'na',
+                    age:18
+                }
+            }
+        })
+        
+        // 注册组件
+        new Vue({
+            el:'#root',
+            data:{
+                name:'component train'
+            },
+            components:{
+                p1:p1,
+                p2:p2
+            }
+        })
+    </script>
+</html>
