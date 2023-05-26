@@ -7,25 +7,31 @@
     <body>
         <div id="root">
             {{name}}
-            <hr>
-            <p1></p1>
-            <p2></p2>
+ 
+            <first-component></first-component>
+            <second-component></second-component>
             <p3></p3>
+      
         </div>
-
+        <hr>
         <div id="root2">
-            <hr>
+            {{name}}
             <p3></p3>
+         
         </div>
     </body>
 
+
+
+
     <script>
+        
         // 创建组件
         const p1 = Vue.extend({
             template:`
                 <div>
-                    <b>{{name}}</b>    -
-                    <b>{{age}}</b>
+                    {{name}}   -
+                    {{age}}
                 </div>
             `,
             // 必须写函数，避免组件复用时数据藕合
@@ -39,8 +45,8 @@
         const p2 = Vue.extend({
             template:`
                 <div>
-                    <b>{{name}}</b>    -
-                    <b>{{age}}</b>
+                    {{name}}   -
+                    {{age}}
                 </div>
             `,
             data(){
@@ -50,38 +56,49 @@
                 }
             }
         })
+       
+        const obj = {
+            name:'temp',
+            age:'NOT REAL'
+        }
         const p3 = Vue.extend({
+            name:'WhyDataIsFunction',
             template:`
                 <div>
                     <b>{{name}}</b>    -
-                    <b>{{age}}</b>
+                    {{age}}
                 </div>
             `,
             data(){
-                return{
-                    name:'temp',
-                    age:'NOT REAL'
-                }
+                return obj // data引用对象，修改某一组件时会影响其他组件 【试着修改obj.name = MARS】
             }
+               
+            
         })
+    
+    
+        // 注册全局组件
+        Vue.component('p3',p3)
+       
 
-        
+        // 创建Vue实例
         new Vue({
             el:'#root',
             data:{
-                name:'component train'
+                name:'App 1'
             },
             // 注册组件（局部
             components:{
-                p1,
-                p2
+                'first-component':p1,
+                'second-component':p2
             }
         })
 
-        // 注册组件（全局
-        Vue.component('p3',p3)
         new Vue({
             el:'#root2',
+            data:{
+                name: 'App 2'
+            }
         })
         
     </script>
