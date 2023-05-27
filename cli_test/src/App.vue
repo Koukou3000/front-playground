@@ -1,26 +1,23 @@
 <!--汇总如Student.vue的组件进行展示-->
 <template>
     <div>
-        <HelloStudent></HelloStudent>
+        <h2 ref="title">can touch this</h2>
+        <button @click="getTitle">hit to get title</button>
+        <HelloStudent ref="vueCom"></HelloStudent>
     </div>
 </template>
 
 <script>
 
     import HelloStudent from './components/HelloStudent'
-    
-    // const App = Vue.extend({
-    //     name:'App',
-    //     components:{HelloStudent},
-    // })
-    // export default App
 
-    // 简写形式
     export default{
         name:'App',
-        components:{HelloStudent}
+        components:{HelloStudent},
+        methods: {
+            getTitle(){
+                console.log(this.$refs)
+            }
+        },
    }
 </script>
-
-
-

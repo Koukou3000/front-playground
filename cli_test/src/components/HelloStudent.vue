@@ -6,6 +6,14 @@
 </template>
 
 <script>
+    // 完整暴露
+    // const HelloStudent = Vue.extend({
+    //     name:'HelloStudent',
+    //     data(){}
+    // })
+    // export default HelloStudent
+
+    // 简写形式
     export default {
         name:'HelloStudent',
         data(){
@@ -16,5 +24,3 @@
         },
     }
 </script>
-
-
