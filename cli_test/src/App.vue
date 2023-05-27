@@ -12,9 +12,10 @@
     // const App = Vue.extend({
     //     name:'App',
     //     components:{HelloStudent},
-     
     // })
     // export default App
+
+    // 简写形式
     export default{
         name:'App',
         components:{HelloStudent}
