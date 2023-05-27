@@ -8,18 +8,17 @@
 <script>
 
     import HelloStudent from './components/HelloStudent'
-    console.log('Student.vue is read!')
     
-    const App = Vue.extend({
-        name:'App',
-        components:{HelloStudent},
+    // const App = Vue.extend({
+    //     name:'App',
+    //     components:{HelloStudent},
      
-    })
-    export default App
-//     export default{
-//         name:'App',
-//         components:{HelloStudent}
-//    }
+    // })
+    // export default App
+    export default{
+        name:'App',
+        components:{HelloStudent}
+   }
 </script>
 
 
