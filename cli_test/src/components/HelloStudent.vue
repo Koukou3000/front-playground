@@ -1,16 +1,13 @@
 <!--包含结构、样式、交互的组件文件-->
 <template>
     <div class="hello">
-        <span v-call="surname">{{name}}</span> 
-        -- {{age}} 
+        <span v-call="surname">{{name}}</span> -- {{age}} 
         <br>
         <div>个性签名：{{msg | myFilter}}</div>
     </div>
 </template>
 
 <script>
-    // import {attach} from '../mixin'
-
     // export简写形式
     export default {
         name:'HelloStudent',
@@ -30,6 +27,6 @@
                 required:true
             }
         },
-        // mixins:[attach]
+        
     }
 </script>

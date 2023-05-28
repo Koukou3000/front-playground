@@ -1,8 +1,9 @@
-<!--汇总如Student.vue的组件进行展示-->
+<!-- App.vue 汇总组件进行展示-->
 <template>
     <div>
         <h2 ref="title">在ref中可以看到真实DOM</h2>
         <button @click="getTitle">getRefs</button>
+        <hr>
         <HelloStudent ref="vueCom_1" :age="18" ></HelloStudent>
     </div>
 </template>
