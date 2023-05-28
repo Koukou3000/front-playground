@@ -1,9 +1,9 @@
 <!--汇总如Student.vue的组件进行展示-->
 <template>
     <div>
-        <h2 ref="title">can touch this</h2>
-        <button @click="getTitle">hit to get title</button>
-        <HelloStudent ref="vueCom"></HelloStudent>
+        <h2 ref="title">这是一个标题</h2>
+        <button @click="getTitle">hit to get refs</button>
+        <HelloStudent ref="component_helloStudent" :age="18" msg="逸一时，误一世!"></HelloStudent>
     </div>
 </template>
 

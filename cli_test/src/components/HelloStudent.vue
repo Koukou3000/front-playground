@@ -2,6 +2,7 @@
 <template>
     <div class="hello">
         {{name}} -- {{age}}
+        <br>个性签名：{{msg}}
     </div>
 </template>
 
@@ -19,8 +20,20 @@
         data(){
             return{
                 name:'kou',
-                age:18
+                
             }
         },
+        props:{
+            msg:{
+                type:String,
+                default:''
+            },
+            age:{
+                type:Number,
+                required:true
+            }
+            
+
+        }
     }
 </script>
