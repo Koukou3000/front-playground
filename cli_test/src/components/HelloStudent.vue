@@ -7,33 +7,26 @@
 </template>
 
 <script>
-    // 完整暴露
-    // const HelloStudent = Vue.extend({
-    //     name:'HelloStudent',
-    //     data(){}
-    // })
-    // export default HelloStudent
+    // import {attach} from '../mixin'
 
-    // 简写形式
+    // export简写形式
     export default {
         name:'HelloStudent',
         data(){
             return{
                 name:'kou',
-                
             }
         },
         props:{
             msg:{
                 type:String,
                 default:'这个人很懒，没有留下什么'
-            },
+            }, 
             age:{
                 type:Number,
                 required:true
             }
-            
-
-        }
+        },
+        // mixins:[attach]
     }
 </script>

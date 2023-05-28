@@ -3,7 +3,7 @@
     <div>
         <h2 ref="title">这是一个标题</h2>
         <button @click="getTitle">hit to get refs</button>
-        <HelloStudent ref="component_helloStudent" :age="18" ></HelloStudent>
+        <HelloStudent ref="vueCom_1" :age="18" ></HelloStudent>
     </div>
 </template>
 

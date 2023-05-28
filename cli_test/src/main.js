@@ -9,6 +9,8 @@ Vue.config.productionTip = false
 //   components:{App}
 // }).$mount('#app') // 先前的写法，由于引入的删减版不包含compiler，无法编译<template>
 
+import {attach} from './mixin'
+Vue.mixin(attach)
 new Vue({
   // render(createElement){ // 1.传入的参数createElement是一个函数
   //   return createElement('h1','hello!')
