@@ -1,8 +1,10 @@
 <!--包含结构、样式、交互的组件文件-->
 <template>
     <div class="hello">
-        {{name}} -- {{age}}
-        <br>个性签名：{{msg}}
+        <span v-call="surname">{{name}}</span> 
+        -- {{age}} 
+        <br>
+        <div>个性签名：{{msg | myFilter}}</div>
     </div>
 </template>
 
@@ -14,7 +16,8 @@
         name:'HelloStudent',
         data(){
             return{
-                name:'kou',
+                name:'迪克',
+                surname:'萨科迈'
             }
         },
         props:{
