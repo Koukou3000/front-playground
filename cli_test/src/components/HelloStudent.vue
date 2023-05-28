@@ -26,7 +26,7 @@
         props:{
             msg:{
                 type:String,
-                default:''
+                default:'这个人很懒，没有留下什么'
             },
             age:{
                 type:Number,
