@@ -30,7 +30,7 @@
         },
         methods: {
             componentMethod(){
-                this.$emit('customAct',this.name,[1,2,3,4,5])                
+                this.$emit('customAct',this.name,[1,2,3,4,5]) // 子组件给父组件传值     
             }
         },
         
