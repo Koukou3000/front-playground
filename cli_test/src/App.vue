@@ -5,6 +5,7 @@
         <button @click="getTitle">getRefs</button>
         <hr>
         <HelloStudent ref="vueCom_1" :age="18" ></HelloStudent>
+        
     </div>
 </template>
 

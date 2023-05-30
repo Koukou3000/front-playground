@@ -1,42 +1,48 @@
 <!DOCTYPE html>
 <html>
 closure 
+
 <script>
-    // 定时器需求，如果变量定义在函数内则无法实现，参数在每次函数调用时都被初始化
+    /*
+    定时器需求，常见的思路是定义一个变量，再使用一个函数控制这个变量。
+    但是，如果希望变量定义在函数内，则无法实现该需求，因为函数内的参数在每次函数调用时都将被初始化
+    */
     let i = 0
-    function doCounter(){
+    function oldCounter(){
         const counter = setInterval(function(){
             console.log('i++')
             i++
             if(i === 10){
-                console.log('timer stop')
+                console.log('timer up (old')
                 clearInterval(counter) 
             }
         },50)
     }
 
 
-    // 当内部函数访问外部函数的变量，若内部函数始终存在于内存中，由于内部函数变量依赖于外部函数的原因，就会使得外部函数的数据不会被垃圾回收机制回收。
-    function startCounter(){
-        let n = 0
-
-        function counter(){
-            console.log('n++')
-            n++
-            if(n === 10){
+    function f1(){
+        let j = 0
+        function f2(){
+            console.log('j++')
+            j++
+            if(j === 10){
                 console.log('time up')
                 clearInterval(timer)
-                
-                n = null //由于闭包会使得函数中的变量都被保存在内存中，这可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。
+                j = null // js的垃圾回收机制，当引用为null时会gc，因此闭包可能会带来内存泄漏
             }
         }
-        let timer = setInterval(function(){
-            counter()
-        },50)
-
+        return f2
     }
-    console.log('i',i) // i可以被其他语句修改
-    // console.log('n',n) // 而n只能在startCounter()函数中被访问到
+    var func = f1() // f2始终在内存中，而f2的存在依赖于f1，因此f1也始终在内存中，故作用域中的自由变量j得以存活
+    let timer = setInterval(()=>{
+        func()
+    },50)
+    
+    
+    
+
+    console.log('i =',i) // i可以被其他语句修改
+    // console.log('j',j) // 而j只能在startCounter()函数中被访问到
 
 </script>
 </html>
