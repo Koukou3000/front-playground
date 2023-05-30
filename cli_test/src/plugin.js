@@ -1,7 +1,7 @@
 export default {
     install(Vue){
         Vue.filter('myFilter',function(v){
-            return v+' !'
+            return v+' (plugin.js'
         })
 
         Vue.directive('call',function(element,binding){   
@@ -11,7 +11,7 @@ export default {
         Vue.mixin({
             data(){
                 return {
-                    mixin_data:114514
+                    mixin_data:'from plugin.js'
                 }
             }
         })

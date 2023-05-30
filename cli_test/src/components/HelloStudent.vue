@@ -4,6 +4,7 @@
         <span v-call="surname">{{name}}</span> -- {{age}} 
         <br>
         <div>个性签名：{{msg | myFilter}}</div>
+        <button @click="componentMethod">点我传值给app</button>
     </div>
 </template>
 
@@ -24,7 +25,12 @@
             }, 
             age:{
                 type:Number,
-                required:true
+                 default:18
+            }
+        },
+        methods: {
+            componentMethod(){
+                this.$emit('customAct',this.name,[1,2,3,4,5])                
             }
         },
         

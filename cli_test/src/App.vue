@@ -1,25 +1,35 @@
 <!-- App.vue 汇总组件进行展示-->
 <template>
     <div>
-        <h2 ref="title">在ref中可以看到真实DOM</h2>
-        <button @click="getTitle">getRefs</button>
+        <HelloStudent ref="helloStu" ></HelloStudent>
         <hr>
-        <HelloStudent ref="vueCom_1" :age="18" ></HelloStudent>
-        
+        {{msgFromStu}}
     </div>
 </template>
 
 <script>
-
     import HelloStudent from './components/HelloStudent'
-
     export default{
         name:'App',
         components:{HelloStudent},
-        methods: {
-            getTitle(){
-                console.log(this.$refs)
+        data() {
+            return {
+                msgFromStu:''
             }
+        },
+        methods: {
+            updateMsg(val,...arr){
+                this.msgFromStu = val
+                console.log(arr)
+            }
+        },
+        mounted() {
+            // this.$refs.helloStu.$on('customAct',this.updateMsg)
+            this.$refs.helloStu.$on('customAct',(val,...arr)=>{
+                console.log(this)
+                this.msgFromStu = val
+                console.log(arr)
+            })
         },
    }
 </script>
