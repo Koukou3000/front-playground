@@ -1,7 +1,8 @@
 <template>
     <div>
+        Vue在合适的时机给DOM元素加上css类名
         <button @click="isShow = !isShow">!isShow</button>
-
+        
         <transition appear name="t1">
             <div v-show="isShow" class="d1">color bar 1</div>
         </transition>
@@ -25,6 +26,7 @@
 </script>
 
 <style scoped>
+    /* transition */
     .d1{
         background: skyblue;
         color: white;
@@ -39,10 +41,10 @@
     }
     .t1-enter-active, .t1-leave-active{
         transition: 0.5s linear;
-    }
+    }  
 
 
-
+    /* keyframe */
     .d2{
         background: #333;
         color: orange;
