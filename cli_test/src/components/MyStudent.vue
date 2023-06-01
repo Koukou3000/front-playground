@@ -1,7 +1,7 @@
 <!--包含结构、样式、交互的组件文件-->
 <template>
     <div class="hello">
-        <span>{{surname}}{{name}}</span>
+        <span>{{name}}</span>
         <br>
      
         {{secret}}
@@ -26,7 +26,10 @@
         // 声明自己关联的自定义方法
         mounted(){
             this.$bus.$on('studentGet',this.learnTruth)
-        }
+        },
+        beforeDestroy() {
+            this.$bus.$off('studentGet')
+        },
         
     }
 </script>
