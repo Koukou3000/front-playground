@@ -1,9 +1,6 @@
 <!--包含结构、样式、交互的组件文件-->
 <template>
     <div class="hello">
-        <span>{{name}}</span>
-        <br>
-     
         {{secret}}
     </div>
 </template>
@@ -14,7 +11,7 @@
         name:'MyStudent',
         data(){
             return{
-                name:'迪克',
+                name:'student',
                 secret:''
             }
         },
@@ -33,3 +30,4 @@
         
     }
 </script>
+

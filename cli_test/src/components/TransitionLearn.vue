@@ -1,6 +1,6 @@
 <template>
     <div>
-        Vue在合适的时机给DOM元素加上css类名
+        Vue在合适的时机给DOM元素加上css类名<br>
         <button @click="isShow = !isShow">!isShow</button>
         
         <transition appear name="t1">
@@ -10,7 +10,10 @@
         <transition appear name="t2">
             <div v-show="isShow" class="d2">color bar 2</div>
         </transition>
-        
+        <div v-call="isShow">{{mixin_data | myFilter}}</div>
+        <div class="slot">
+            <slot>如果没有收到内容，会展示这些东西</slot>
+        </div>
     </div>
 </template>
 
@@ -64,7 +67,17 @@
             transform: translateX(0);
         }
     }
- 
+
+
+
+   .slot{
+        background: #333;
+        color: white;
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+    }
    
 </style>
+
 

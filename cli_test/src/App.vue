@@ -1,11 +1,13 @@
 <!-- App.vue 汇总组件进行展示-->
 <template>
     <div>
+        《组件间通信》
         <MyStudent/>
-        <hr>
         <MyRoomMate/>
         <hr>
-        <TransitionLearn/>
+        <TransitionLearn>
+            传递一些内容
+        </TransitionLearn>
     </div>
 </template>
 
