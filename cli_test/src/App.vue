@@ -11,10 +11,9 @@
         </TransitionLearn>
         <hr>
 
-        App - Vuex <br>
-        count = {{count}}<br>
-        {{height}} {{weight}} {{length}}
-        <MyPerson/>    
+        Vuex 
+        <XPerson/>    
+        <XCount/>
     </div>
 </template>
 
@@ -22,21 +21,11 @@
     import MyRoomMate from './components/MyRoomMate'
     import MyStudent from './components/MyStudent'
     import TransitionLearn from './components/TransitionLearn'
-    import MyPerson from './components/MyPerson'
+    import XPerson from './components/XPerson'
+    import XCount from './components/XCount'
 
-    import {mapState,mapGetters} from 'vuex'
     export default{
         name:'App',
-        components:{MyStudent,MyRoomMate,TransitionLearn,MyPerson},
-       
-        computed:{
-            /* ...mapState({height:'height',weight:'weight',length:'length'}),
-                height:'height',
-                weight:'weight',
-                length:'length'
-            */
-            ...mapState(['height','weight','count']),
-            ...mapGetters({length:'length'})
-        }
+        components:{MyStudent,MyRoomMate,TransitionLearn,XPerson,XCount},
    }
 </script>
