@@ -1,5 +1,6 @@
 <template>
     <div>
+        <hr>
         Vue在合适的时机给DOM元素加上css类名<br>
         <button @click="isShow = !isShow">!isShow</button>
         

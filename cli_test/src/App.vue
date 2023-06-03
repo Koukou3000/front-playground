@@ -4,17 +4,17 @@
         《组件间通信》
         <MyStudent/>
         <MyRoomMate/>
-        <hr>
+      
 
         <TransitionLearn>
-            传递一些内容
+            slot传递
         </TransitionLearn>
         <hr>
 
-        Vuex <br>
-        count = {{$store.state.count}}<br>
-        <button @click="vuexAdd">加</button>
-    
+        App - Vuex <br>
+        count = {{count}}<br>
+        {{height}} {{weight}} {{length}}
+        <MyPerson/>    
     </div>
 </template>
 
@@ -22,13 +22,21 @@
     import MyRoomMate from './components/MyRoomMate'
     import MyStudent from './components/MyStudent'
     import TransitionLearn from './components/TransitionLearn'
+    import MyPerson from './components/MyPerson'
+
+    import {mapState,mapGetters} from 'vuex'
     export default{
         name:'App',
-        components:{MyStudent,MyRoomMate,TransitionLearn},
-        methods: {
-            vuexAdd(){
-                this.$store.dispatch('add',1)
-            }
-        },
+        components:{MyStudent,MyRoomMate,TransitionLearn,MyPerson},
+       
+        computed:{
+            /* ...mapState({height:'height',weight:'weight',length:'length'}),
+                height:'height',
+                weight:'weight',
+                length:'length'
+            */
+            ...mapState(['height','weight','count']),
+            ...mapGetters({length:'length'})
+        }
    }
 </script>
