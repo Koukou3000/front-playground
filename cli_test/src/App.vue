@@ -5,9 +5,16 @@
         <MyStudent/>
         <MyRoomMate/>
         <hr>
+
         <TransitionLearn>
             传递一些内容
         </TransitionLearn>
+        <hr>
+
+        Vuex <br>
+        count = {{$store.state.count}}<br>
+        <button @click="vuexAdd">加</button>
+    
     </div>
 </template>
 
@@ -18,5 +25,10 @@
     export default{
         name:'App',
         components:{MyStudent,MyRoomMate,TransitionLearn},
+        methods: {
+            vuexAdd(){
+                this.$store.dispatch('add',1)
+            }
+        },
    }
 </script>
