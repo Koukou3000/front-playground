@@ -1,20 +1,39 @@
 <template>
     <div>
         <hr>
-        XCount<br>
+        XCount 原生方式<br>
         count = {{countAbout.count}}<br>
         {{personAbout.height}} | {{personAbout.weight/2}} | {{len1}}
+        <button @click="add">actions ++</button>
+        <button @click="addMu">MUTATIONS +++</button>
     </div>
 </template>
 
 <script>
-import {mapState,mapGetters} from 'vuex'
 
 export default {
     name:'XCount',
     computed:{
-        ...mapState(['personAbout','countAbout']),
-        ...mapGetters({len1:'personAbout/len'}) 
+        personAbout(){
+            return this.$store.state.personAbout
+        },
+        countAbout(){
+            return this.$store.state.countAbout
+        },
+        // ...mapState(['personAbout','countAbout']),     
+        len1(){
+            return this.$store.getters['personAbout/len'] //getters.personAbout/len 
+        }
+        // ...mapGetters({len1:'personAbout/len'}) 
+    },
+    methods: {
+        add(){
+            this.$store.dispatch('countAbout/add',3)
+        },
+        addMu(){
+            this.$store.commit('countAbout/ADD',114)
+        }
+
     },
 }
 </script>
