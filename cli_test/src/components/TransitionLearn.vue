@@ -11,7 +11,7 @@
         <transition appear name="t2">
             <div v-show="isShow" class="d2">color bar 2</div>
         </transition>
-        <div v-call="isShow">{{mixin_data | myFilter}}</div>
+        
         <div class="slot">
             <slot>如果没有收到内容，会展示这些东西</slot>
         </div>

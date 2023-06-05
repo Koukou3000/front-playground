@@ -22,10 +22,10 @@
         },
         // 声明自己关联的自定义方法
         mounted(){
-            this.$bus.$on('studentGet',this.learnTruth)
+            // this.$bus.$on('studentGet',this.learnTruth)
         },
         beforeDestroy() {
-            this.$bus.$off('studentGet')
+            // this.$bus.$off('studentGet')
         },
         
     }

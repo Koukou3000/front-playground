@@ -1,10 +1,10 @@
 <template>
-  <div>RAbout</div>
+  <div>Router-Room1</div>
 </template>
 
 <script>
 export default {
-    name:'RAbout'
+    name:'RoomOne'
 }
 </script>
 

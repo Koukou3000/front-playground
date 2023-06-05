@@ -5,15 +5,14 @@
         <MyStudent/>
         <MyRoomMate/>
       
-
         <TransitionLearn>
             slot传递
         </TransitionLearn>
         <hr>
 
-        Vuex 
+        <!-- Vuex 
         <XPerson/>    
-        <XCount/>
+        <XCount/> -->
         <hr>
 
         VueRouter <br>     
@@ -27,12 +26,15 @@
     import MyRoomMate from './components/MyRoomMate'
     import MyStudent from './components/MyStudent'
     import TransitionLearn from './components/TransitionLearn'
-    import XPerson from './components/XPerson'
-    import XCount from './components/XCount'
+    // import XPerson from './components/XPerson'
+    // import XCount from './components/XCount'
 
     export default{
         name:'App',
-        components:{MyStudent,MyRoomMate,TransitionLearn,XPerson,XCount},
+        components:{
+            MyStudent,MyRoomMate,TransitionLearn,
+            // XPerson,XCount
+        },
    }
 </script>
 

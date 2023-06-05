@@ -17,7 +17,7 @@
         },
         methods: {
             tellTruth(){
-                this.$bus.$emit('studentGet','我____60级', this.name)
+                // this.$bus.$emit('studentGet','我____60级', this.name)
             },
         },
     }

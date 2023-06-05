@@ -1,10 +1,17 @@
 <template>
-  <div>RHOme</div>
+
+  <div>
+
+    <hr>
+    RAbout
+  </div>
+
 </template>
 
 <script>
 export default {
-    name:'RHome'
+    name:'RAbout',
+    
 }
 </script>
 
