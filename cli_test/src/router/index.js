@@ -1,10 +1,13 @@
 
 import VueRouter from 'vue-router'
 
+
 import RAbout from '../pages/RAbout'
 import RHome from '../pages/RHome'
 import RoomOne from '../pages/RoomOne'
 import RoomTwo from '../pages/RoomTwo'
+
+
 export default new VueRouter({
     routes:[
         {

@@ -1,7 +1,5 @@
 <template>
-
   <div>
-
     <hr>
     RAbout
   </div>

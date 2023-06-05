@@ -9,9 +9,9 @@ import App from './App.vue'
 // vue-router 路由
 import VueRouter from 'vue-router'
 import router from './router'
+Vue.use(VueRouter)
 
 Vue.config.productionTip = false
-Vue.use(VueRouter)
 
 new Vue({
     render: h => h(App), // 介绍见main_learn.js
