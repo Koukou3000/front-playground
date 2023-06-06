@@ -16,9 +16,17 @@
         <hr>
 
         VueRouter <br>     
+            <button @click="back">back</button>
+            <button @click="next">next</button><br>
         <router-link to="/about" active-class="router-bold">abouit</router-link><br>
         <router-link to="/home" active-class="router-bold">home</router-link>
         <router-view></router-view>
+
+
+        <Roomone/>
+
+        <button>default btn</button>
+        <el-button>element</el-button>
     </div>
 </template>
 
@@ -28,13 +36,22 @@
     import TransitionLearn from './components/TransitionLearn'
     // import XPerson from './components/XPerson'
     // import XCount from './components/XCount'
+    import Roomone from './pages/RoomOne.vue'
 
     export default{
         name:'App',
         components:{
-            MyStudent,MyRoomMate,TransitionLearn,
+            MyStudent,MyRoomMate,TransitionLearn,Roomone
             // XPerson,XCount
         },
+        methods: {
+            back(){
+                this.$router.back()
+            },
+            next(){
+                this.$router.forward()
+            }
+        },  
    }
 </script>
 

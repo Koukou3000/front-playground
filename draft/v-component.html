@@ -6,8 +6,7 @@
 
     <body>
         <div id="root">
-            {{name}}
- 
+            {{appName}}
             <first-component></first-component>
             <second-component></second-component>
             <p3></p3>
@@ -15,15 +14,11 @@
         </div>
         <hr>
         <div id="root2">
-            {{name}}
+            {{appName}}
             <p3></p3>
-         
         </div>
+
     </body>
-
-
-
-
     <script>
         
         // 创建组件
@@ -72,20 +67,15 @@
             data(){
                 return obj // data引用对象，修改某一组件时会影响其他组件 【试着修改obj.name = MARS】
             }
-               
-            
         })
-    
     
         // 注册全局组件
         Vue.component('p3',p3)
-       
-
         // 创建Vue实例
         new Vue({
             el:'#root',
             data:{
-                name:'App 1'
+                appName:'App1'
             },
             // 注册组件（局部
             components:{
@@ -97,7 +87,7 @@
         new Vue({
             el:'#root2',
             data:{
-                name: 'App 2'
+                appName: 'App2'
             }
         })
         

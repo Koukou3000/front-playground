@@ -2,7 +2,9 @@
 import Vue from 'vue' 
 import App from './App.vue'
 
-// vuex 全局数据管理
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+// vuex 全局数据管理 
 // import store from './store'
 // Vue.use(store)
 
@@ -12,7 +14,7 @@ import router from './router'
 Vue.use(VueRouter)
 
 Vue.config.productionTip = false
-
+Vue.use(ElementUI)
 new Vue({
     render: h => h(App), // 介绍见main_learn.js
     router: router,

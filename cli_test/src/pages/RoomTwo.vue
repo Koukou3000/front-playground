@@ -8,7 +8,11 @@
 <script>
 export default {
     name:'RoomTwo',
-    props:['name','age']
+    props:['name','age'],
+    beforeDestroy() {
+      console.log('r2  before destory')
+    },
+    
 }
 </script>
 

@@ -2,9 +2,14 @@
   <div> 
     <hr>
     <div>RHome -- 嵌套 Route</div>
+
+
+
     <router-link to="/home/room1" active-class="bold">房间甲</router-link>
     <button @click="pushShow">push</button>
     <button @click="replaceShow">replace</button><br>
+
+
 
     <router-link :to="{
       name:'r2',
@@ -13,12 +18,11 @@
         age:'20'
       }
     }" active-class="bold">房间乙</router-link>
-    <button>push</button>
-    <button>replace</button>
-  
+
+    <keep-alive include="RoomTwo">
+      <router-view></router-view>
     
-    
-    <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
@@ -35,7 +39,7 @@ export default {
         this.$router.replace({
             path:'/home/room1'
         })
-      }
+      },
     },
     
 }

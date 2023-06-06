@@ -8,18 +8,24 @@ import RoomOne from '../pages/RoomOne'
 import RoomTwo from '../pages/RoomTwo'
 
 
-export default new VueRouter({
+const router = new VueRouter({
     routes:[
         {
             path:'/about',
-            component:RAbout
+            component:RAbout,
+            meta:{title:'关于'}
         },
         {
             path:'/home',
             component:RHome,
+            meta:{title:'主页'},
             children:[{
-                path:'room1', // 嵌套已经蕴含了【/】 不需要再添加
-                component:RoomOne
+                path:'room1',
+                component:RoomOne,
+                beforeEnter(to,from,next){
+                    console.log('r1 独享路由守卫')
+                    next()
+                }
             },
             {
                 name:'r2',
@@ -36,3 +42,12 @@ export default new VueRouter({
         }
     ]
 })
+
+router.beforeEach((to,from,next)=>{
+    console.log(from.path,'=>',to.path)
+    next()
+})
+router.afterEach((to)=>{
+    document.title = to.meta.title
+})
+export default router
