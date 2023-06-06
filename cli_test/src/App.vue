@@ -25,8 +25,9 @@
 
         <Roomone/>
 
-        <button>default btn</button>
-        <el-button>element</el-button>
+        
+        <el-button>按钮</el-button>
+        
     </div>
 </template>
 

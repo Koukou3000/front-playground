@@ -2,8 +2,7 @@
 import Vue from 'vue' 
 import App from './App.vue'
 
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+
 // vuex 全局数据管理 
 // import store from './store'
 // Vue.use(store)
@@ -13,8 +12,11 @@ import VueRouter from 'vue-router'
 import router from './router'
 Vue.use(VueRouter)
 
+
+import {Button} from 'element-ui'
+Vue.component(Button.name,Button)
 Vue.config.productionTip = false
-Vue.use(ElementUI)
+
 new Vue({
     render: h => h(App), // 介绍见main_learn.js
     router: router,
