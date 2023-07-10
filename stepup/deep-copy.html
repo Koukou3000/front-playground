@@ -11,8 +11,72 @@
 </body>
 </html>
 <script>
-let a ={name: 'koukou', age: 18}
-console.log(a.constructor)
+    // f1 JSON.parse()
+    let a = {
+        name: 'koukou', 
+        age: 18,
+        job: {
+            name: 'web dev',
+            salary: 0      
+        },
+        hobby:['pulse','reflect','feel']
+    }
+    let b = a
+    let c = JSON.parse(JSON.stringify(a)) //希望复制内容，而不是引用
+    
+    // 修改值
+    a.name = 'koukou3000'
+    a.job.salary = 114 
+    a.hobby.pop()
 
+    // 对比两种情况
+    console.log('b 复制引用',b)
+    console.log('c 复制值',c)
+    
 
+    // f2 recursion
+        // 每层逻辑，赋值当前所有非Array Object 的属性给ret
+        // 递归判断，当前元素是Object（Array则是循环
+    function deepCopy(obj){
+        let ret = {}
+        for(let key in obj){
+            // 判断是否是对象，是则递归
+            if(obj[key].constructor == Object){     
+                ret[key] = deepCopy(obj[key])
+            }
+            // 判断是否为数组，是则循环
+            else if(obj[key].constructor == Array){
+                let arr_ret = [] // 拷贝的数组
+                let arr = obj[key] // 当前引用的数组 
+                for(let i of arr){
+                    arr_ret.push(i)
+                }
+                ret[key] = arr_ret 
+            }
+            else {
+                ret[key] = obj[key] // 普通属性，直接赋值
+            }
+        }
+        return ret
+    }
+
+    // 还原值
+    a = {
+        name: 'koukou', 
+        age: 18,
+        job: {
+            name: 'web dev',
+            salary: 0      
+        },
+        hobby:['pulse','reflect','feel']
+    }
+
+    // 自行深拷贝
+    let c2 = deepCopy(a)
+
+    // 修改值
+    a.name = 'koukou3000'
+    a.job.salary = 514
+    a.hobby.pop()
+    console.log('c2 复制值',c2)
 </script>
