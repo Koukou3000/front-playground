@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+事件循环
+<button onclick="console.log(123)">123</button>
+</html>
+
+<script>
+let i = 0;
+
+let start = Date.now();
+
+function count() {
+
+  // 做繁重的任务的一部分 (*)
+  do {
+    i++;
+  } while (i % 1e6 != 0);
+
+  if (i == 1e9) {
+    alert("Done in " + (Date.now() - start) + 'ms');
+  } else {
+    setTimeout(count); // 安排（schedule）新的调用 (**)
+  }
+
+}
+
+count();
+
+</script>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise.all()</title>
+</head>
+<body>
+
+</body>
+</html>
+
+<script>
+    // p1 - 问题出现
+        // 需求：当某一个promise报错时，拿到其他正常的返回结果
+        let a = new Promise((resolve, reject)=>{
+            resolve(1)     
+        })
+        let b = new Promise((resolve, reject)=>{
+            setTimeout(() => {
+                resolve(2)
+            }, 1000);
+        })
+        let c = new Promise((resolve, reject)=>{
+            // resolve(3)
+            reject('error c')
+        })
+        let arr = [a,b,c]
+
+        // Promise.all() 的设计是一旦有任何一个 Promise 实例被拒绝，整个 Promise.all() 的返回值就会被拒绝。
+            // 这意味着在 catch 语句块中只能处理整个 Promise.all() 失败的情况，而无法获取其他成功 Promise 实例的返回值。
+        Promise.all(arr)
+        .then(p=>{
+            console.log(p, ' - 正常时，拿到所有返回值')
+        })
+        .catch(r=>{
+            console.log(r, ' - 报错时，只能拿到reject返回值')
+        })
+
+    // p2 - 问题解决
+    Promise.all(arr.map(p => p.catch(e=>e))) // .catch() 将元素转成fulfill状态，遇到rejected会进行处理
+    .then(val =>{
+        console.log(val)
+    })
+    
+
+    // p3 - 官方API（可能需要polyfill
+    Promise.allSettled(arr)
+    .then(val=>{
+        console.log(val)
+    })
+
+</script>
