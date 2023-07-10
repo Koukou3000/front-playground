@@ -16,7 +16,7 @@
         name: 'koukou', 
         age: 18,
         job: {
-            name: 'web dev',
+            call: 'web dev',
             salary: 0      
         },
         hobby:['pulse','reflect','feel']
@@ -38,34 +38,26 @@
         // 每层逻辑，赋值当前所有非Array Object 的属性给ret
         // 递归判断，当前元素是Object（Array则是循环
     function deepCopy(obj){
-        let ret = {}
+        let newObj = obj.constructor == Array ? [] : {} // 数组，遍历索引赋值；对象，遍历属性赋值
+        
         for(let key in obj){
-            // 判断是否是对象，是则递归
-            if(obj[key].constructor == Object){     
-                ret[key] = deepCopy(obj[key])
+
+            if(typeof obj[key] == 'object'){
+                newObj[key] = deepCopy(obj[key])
             }
-            // 判断是否为数组，是则循环
-            else if(obj[key].constructor == Array){
-                let arr_ret = [] // 拷贝的数组
-                let arr = obj[key] // 当前引用的数组 
-                for(let i of arr){
-                    arr_ret.push(i)
-                }
-                ret[key] = arr_ret 
-            }
-            else {
-                ret[key] = obj[key] // 普通属性，直接赋值
+            else{
+                newObj[key] = obj[key] // string number...
             }
         }
-        return ret
+        return newObj
     }
-
+  
     // 还原值
     a = {
         name: 'koukou', 
         age: 18,
         job: {
-            name: 'web dev',
+            call: 'web dev',
             salary: 0      
         },
         hobby:['pulse','reflect','feel']
