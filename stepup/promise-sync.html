@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sync</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    // 回调
+    // setTimeout(() => {
+    //     console.log(1)
+    //     setTimeout(() => {
+    //         console.log(2)
+    //         setTimeout(() => {
+    //             console.log(3)
+    //         }, 1000);
+    //     }, 1000);
+    // }, 1000);
+
+
+    // 链式回调
+    function delayLog(data){
+        return new Promise((resolve, reject)=>{
+            setTimeout(() => {
+                resolve(data)
+            }, 1000);
+        })
+    }
+    // delayLog(1)
+    // .then((res)=>{
+    //     console.log(res)
+    //     return delayLog(2)
+    // })
+    // .then((data)=>{
+    //     console.log(data)
+    //     return delayLog(3)
+    // })
+    // .then((data)=>{
+    //     console.log(data)
+    // })
+
+    
+    // async await 语法糖
+    function log(){
+        return new Promise((resolve, reject)=>{
+            let a = Math.random()
+            setTimeout(() => {
+                if(a>0.5){resolve(a)}
+                else{reject(a)}    
+            }, 1000);
+        })
+    }
+    async function delay(){       
+       await log().then(d=>{console.log(d)}).catch(e=>{console.log(e)})
+       // await拿到Promise对象中resolve的数据，才继续往下执行
+       await log().then(d=>{console.log(d)}).catch(e=>{console.log(e)})
+       await log().then(d=>{console.log(d)}).catch(e=>{console.log(e)})
+    }
+    delay() // 异步执行
+    console.log('after delay')
+    console.log('after after delay')
+</script>
+

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>judgeType</title>
+</head>
+<body>
+    判断类型
+</body>
+</html>
+<script>
+    // 开始
+    let d = new Date()
+    console.log(d instanceof Date)  // true (左值是否是右值的实例
+    console.log(d.constructor == Date) // true
+    
+    console.log(typeof 'hello') // string
+    console.log(typeof('hello')) // string
+
+    // 尝试判断下列输出结果
+    console.log(typeof(d) == 'date')
+    console.log('hello' instanceof String)
+    async function fn(){}
+    console.log(fn.constructor == Function)
+
+
+    
+</script>
