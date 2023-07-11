@@ -20,10 +20,10 @@
     console.log(typeof('hello')) // string
 
     // 尝试判断下列输出结果
-    console.log(typeof(d) == 'date')
-    console.log('hello' instanceof String)
+    console.log(typeof(d) == 'date') // typeof d == 'object'
+    console.log('hello' instanceof String) // string属于基本类型, 没有实例的说法; String是用于生成string数据的构造方法；
     async function fn(){}
-    console.log(fn.constructor == Function)
+    console.log(fn.constructor == Function)  // Function是 Object的实例，但是constructor直接指向构造他的方法
 
 
     
