@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <pre>
+    当一个函数被用在大型项目的多个地方。修改这种函数时，没有办法手动检查每个使用它们的地方是否仍旧正确。
+    如果对出错的惩罚比较严重，并且没有测试，那么大家会很害怕修改这样的函数，然后这些代码就会越来越陈旧，没有人会想接触它。这很不利于发展。
+    </pre>
+    <div id="mocha"></div>
+
+
+</body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/10.2.0/mocha.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
+
+<script>
+    mocha.setup('bdd')
+    let assert = chai.assert
+
+    function add(a, b) {
+        if(typeof a !== 'number' 
+        || typeof b !== 'number')  return NaN
+        return a+b   
+    }
+
+    // 作为 测试 —— 保证代码正确工作。
+    // 作为 文档 —— describe 和 it 的标题告诉我们函数做了什么。
+    // 作为 案例 —— 测试实际工作的例子展示了一个函数可以被怎样使用。
+    describe("add", function() {
+        describe("案例1：当参数全为数字时", function() {
+            it("add(1, 2) is 3; ", function() {
+                assert.strictEqual(add(1,2), 3) 
+            });
+            it("add(4, 5) is 9; ", function() {
+                assert.strictEqual(add(4,5), 9);
+            });
+        })
+        describe("案例2：当参数非数字", function() {
+            it("add(1, 'a'); ", function() {
+                assert.isNaN(add(1,'a'))
+            });
+            it("add('a', 1); ", function() {
+                assert.isNaN(add('a',1))
+            })
+            it("add('a', 'b') ", function() {
+                assert.isNaN(add('a','b'))
+            })
+        })
+        describe("案例3-1：当多个assert在一个it中", function() {
+            it("多个用例同时出错时，很难定位错误 ", function() {
+                assert.strictEqual(add(1,2), '3') 
+                assert.strictEqual(add(2,2), '4') 
+                assert.strictEqual(add(3,2), '5') 
+            });
+            
+        })
+        describe("案例3-2：当仅有一个assert在一个it中", function() {
+            it("add(1,2) is 3:number ", function() {
+                assert.strictEqual(add(1,2), '3') 
+               
+            });
+            it('add(2,2) is 4:number ', function(){
+                assert.strictEqual(add(2,2), '4') 
+                
+            });
+            it('add(3,2) is 5:number ', ()=>{
+                assert.strictEqual(add(3,2), '5') 
+            });
+            
+        })
+    });
+    mocha.run()
+</script>
