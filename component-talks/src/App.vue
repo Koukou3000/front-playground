@@ -1,15 +1,37 @@
 <template>
   <div id="app">
-    <FatherComponent></FatherComponent>
+    <div>
+      vertical  
+      <comA></comA>
+      <br>---------------------- <br>
+    
+      <comC></comC>
+    </div>
+    <div>
+      horizontal
+    </div>
+
+    <div>
+      none business
+    </div>
+
+
+
+
+
+
+
   </div>
 </template>
 
 <script>
-import FatherComponent from './components/FatherComponent.vue';
+import comA from './components/comA.vue';
+import comC from './components/comC.vue';
+
 export default {
   name: 'App',
   components: {
-    FatherComponent
+    comA, comC
   }
 }
 </script>
@@ -22,5 +44,12 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  display: flex;
+  width: 100%;
+}
+
+#app>div {
+  border: 1px solid black;
+  flex: 1;
 }
 </style>
