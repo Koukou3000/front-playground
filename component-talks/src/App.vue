@@ -1,11 +1,13 @@
 <template>
   <div id="app">
     <div>
-      vertical  
+      vertical
+      <br>----------------------<br>
       <comA></comA>
-      <br>---------------------- <br>
-    
+      <br>----------------------<br>
       <comC></comC>
+      <br>----------------------<br>
+      <comE></comE>
     </div>
     <div>
       horizontal
@@ -27,11 +29,11 @@
 <script>
 import comA from './components/comA.vue';
 import comC from './components/comC.vue';
-
+import comE from './components/comE.vue';
 export default {
   name: 'App',
   components: {
-    comA, comC
+    comA, comC, comE
   }
 }
 </script>
