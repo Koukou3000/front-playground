@@ -1,33 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    body{
+    body {
       margin: 0 auto;
     }
-    .test{
+
+    button {
+      height: 50px;
+      width: 100px;
+    }
+
+    .container {
+      width: 200px;
+      height: 200px;
+    }
+
+    .box {
       display: block;
       width: 100px;
       height: 100px;
-      background: lightblue;
       transform-origin: 0 0;
-      transform: scale(2);
+      transform: scale(1);
+    }
+
+    .blue {
+      background: lightblue;
+    }
+
+    .red {
+      background: lightpink;
     }
   </style>
 </head>
+
 <body>
-  <div id="bluebox" class="test">
-    test
+
+  <div class="container">
+    <div id="bluebox" class="blue box">
+      correct
+    </div>
   </div>
+  <div class="container">
+    <div id="redbox" class="red box">
+      wrong
+    </div>
+  </div>
+  <div>
+    <button id="button1">点击缩放</button>
+  </div>
+
 </body>
 <script>
-  console.log(document.querySelector('#bluebox').getBoundingClientRect())
-  document.addEventListener('click', e=>{
-    console.log(e.clientX)
-    
-  })
+  // 缩放盒子
+  document.querySelector('#button1')
+    .addEventListener('click', e => {
+      let boxes = document.querySelectorAll('.box')
+      boxes.forEach(box => {
+
+        if (box.style.transform === 'scale(2)') {
+          box.style.transform = 'scale(1)'
+        }
+        else {
+          box.style.transform = 'scale(2)'
+        }
+
+      })
+    })
+
+  // 使用比例计算
+  document.querySelector('#bluebox')
+    .addEventListener('click', e => {
+      let boxRect = document.querySelector('#bluebox').getBoundingClientRect()
+      let mouseClickX = e.clientX
+      let boxWidth = boxRect.right - boxRect.left
+      let clickPercent = (mouseClickX / boxWidth) * 100
+
+      console.log('最终点击位置', clickPercent.toFixed(2), '%')
+    })
+
+  // 使用绝对值计算
+  document.querySelector('#redbox')
+    .addEventListener('click', e => {
+      let box = document.querySelector('#redbox')
+      let boxRect = box.getBoundingClientRect()
+      let clickPlace = e.clientX - boxRect.left
+
+      let scale = 1
+      if (box.style.transform !== '') {
+        scale = box.style.transform.match(/\d/) ? box.style.transform.match(/\d/)[0] : 1
+      }
+
+      console.log('最终点击位置', (clickPlace / scale).toFixed(2), '%')
+    })
 </script>
+
 </html>
