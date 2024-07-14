@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      margin: 0 auto;
+    }
+    .test{
+      display: block;
+      width: 100px;
+      height: 100px;
+      background: lightblue;
+      transform-origin: 0 0;
+      transform: scale(2);
+    }
+  </style>
+</head>
+<body>
+  <div id="bluebox" class="test">
+    test
+  </div>
+</body>
+<script>
+  console.log(document.querySelector('#bluebox').getBoundingClientRect())
+  document.addEventListener('click', e=>{
+    console.log(e.clientX)
+    
+  })
+</script>
+</html>
