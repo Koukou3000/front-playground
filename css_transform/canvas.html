@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas scale</title>
+</head>
+
+<body>
+  <canvas id="canvas" style="border:1px solid black"></canvas>
+  <div>
+    <button id="repaint">重新渲染</button>
+  </div>
+</body>
+
+</html>
+<script>
+  const btn = document.getElementById('repaint')
+  btn.addEventListener('click', e => {
+    draw()
+  })
+
+
+  function draw() {
+    var canvas = document.getElementById("canvas")
+    let context = canvas.getContext("2d");
+    var devicePixelRatio = window.devicePixelRatio || 1;
+    
+    // Set the actual drawing size of the canvas
+    canvas.width = 500 * devicePixelRatio;
+    canvas.height = 200 * devicePixelRatio;
+
+    // Set the CSS display size of the canvas
+    canvas.style.width = 500 + 'px';
+    canvas.style.height = 200 + 'px';
+
+    // reset 
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.setTransform(1, 0, 0, 1, 0, 0);
+
+    // paint font
+    context.scale(devicePixelRatio, devicePixelRatio)
+    context.font = "50px serif";
+    context.fillText("Hello world", 10 , 190 );
+  }
+  draw()
+</script>
