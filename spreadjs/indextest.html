@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="css/cobalt/jquery-wijmo.css" rel="stylesheet" type="text/css" title="rocket-jqueryui"/>
+    <link href="css/jquery.wijmo.wijsuperpanel.css" rel="stylesheet" type="text/css"/>
+    
+    <script src="scripts/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="scripts/jquery-ui-1.9.1.custom.min.js" type="text/javascript"></script>
+    
+    <script type="text/javascript" src="scripts/jquery.wijmo.wijspread.full.debug.js"></script>
+    <title></title>
+</head>
+<script>
+    $(document).ready(function () {
+        $("#ss").wijspread({sheetCount:1});
+    	var spread = $("#ss").wijspread("spread");
+		let db = openDatabase('TestSource', '1.0', 'Test Data DateBase', 100 * 1024 * 1024)
+		alert(db);
+	});
+</script>
+<body>
+	<div id="ss" style="height:800px ; width :100%; "></div>
+    <button onclick="demo()">点我生成</button>
+
+</body>
+</html>

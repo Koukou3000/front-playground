@@ -1,0 +1,333 @@
+/* SuperPanel
+----------------------------------*/
+.wijmo-wijsuperpanel
+{
+    overflow: hidden;
+    outline: none;
+    background-image: none;
+}
+.wijmo-wijsuperpanel-statecontainer
+{
+    overflow: hidden;
+    position: relative;
+    zoom:1;
+}
+.wijmo-wijsuperpanel-contentwrapper
+{
+    position: absolute;
+    overflow: hidden;
+
+}
+.wijmo-wijsuperpanel-hbarcontainer, .wijmo-wijsuperpanel-vbarcontainer
+{
+    font-size: 0px;
+    border:0;
+}
+.wijmo-wijsuperpanel-templateouterwrapper
+{
+    position: relative; 
+/*    overflow:auto; */
+    zoom: 1;
+}
+
+.wijmo-wijsuperpanel-vbarcontainer .ui-state-default, .wijmo-wijsuperpanel-hbarcontainer .ui-state-default
+{
+    width: 16px;
+    height: 16px;
+    position: absolute;
+}
+.wijmo-wijsuperpanel .wijmo-wijsuperpanel-vbarcontainer
+{
+    position: absolute;
+    width: 18px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    border: none;
+}
+.wijmo-wijsuperpanel .wijmo-wijsuperpanel-hbarcontainer
+{
+    position: absolute;
+    height: 18px;
+    padding-left: 18px;
+    padding-right: 18px;
+    border: none;
+}
+.wijmo-wijsuperpanel-handle
+{
+    position: absolute;
+    font-size:0px;
+    overflow:hidden;
+}
+.wijmo-wijsuperpanel-handle *
+{
+    font-size:0px;
+}
+.wijmo-wijsuperpanel-helper
+{
+    border-style: dotted;
+    background: transparent;
+}
+
+.wijmo-wijsuperpanel-button
+{
+    position: absolute;
+    padding: 4px;
+}
+.wijmo-wijsuperpanel .ui-icon-gripsmall-diagonal-se
+{
+    background: none;
+    width: 7px;
+    height: 7px;
+}
+.wijmo-wijsuperpanel-hbar-buttonleft
+{
+    left: 0;
+}
+.wijmo-wijsuperpanel-hbar-buttonright
+{
+    right: 0;
+}
+.wijmo-wijsuperpanel-vbar-buttontop
+{
+    top: 0;
+}
+.wijmo-wijsuperpanel-vbar-buttonbottom
+{
+    bottom: 0;
+}
+.spread-contextmenu {
+  position: absolute;
+  box-shadow: 1px 2px 5px 2px rgba(51, 51, 51, 0.15);
+  background: #fff;
+  z-index: 100;
+  width: 260px;
+  pointer-events: auto;
+  overflow: auto;
+}
+.spread-item {
+   height: 20px;
+   line-height: 20px;
+ }
+
+/* .spread-item.state {
+  padding-left: 35px !important;
+  position: relative;
+}
+.spread-item.state:before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  left: 12px;
+  top: calc(50% - 5px);
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 2px;
+}
+.spread-item.state.checked:before {
+  background: #4b89ff;
+} */
+
+.spread-item {
+  user-select: none;
+  background: 0;
+  border: 1px solid transparent;
+  outline: none;
+  height: 26px;
+  color: rgba(0, 0, 0, 0.9);
+  line-height: 26px;
+  list-style: none;
+  padding: 2px 10px;
+  cursor: default;
+  text-align: left;
+  overflow: hidden;
+}
+.spread-item.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.spread-item:hover, .spread-item.active {
+  background: rgba(0, 0, 0, 0.05);
+}
+.spread-item.divider {
+  height: 0;
+  padding: 0;
+  margin: 5px 0;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.spread-item .label {
+  float: right;
+  opacity: 0.65;
+  font-size: 1em;
+}
+
+.gtwise-print {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.gtwise-print-bar {
+  background: #424242;
+  height: 60px;
+  line-height: 60px;
+  padding: 0 30px;
+}
+.gtwise-print-bar .-title {
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.2em;
+  float: left;
+}
+.gtwise-print-bar .-right {
+  float: right;
+  margin-top: 12px;
+}
+.gtwise-print-content {
+  display: flex;
+  flex: auto;
+  flex-direction: row;
+  background: #d0d0d0;
+  height: calc(100% - 60px);
+}
+.gtwise-print-content .-sider {
+  flex: 0 0 300px;
+  width: 300px;
+  border-left: 2px solid #ccc;
+  background: #fff;
+}
+.gtwise-print-content .-content {
+  flex: auto;
+  overflow-x: auto;
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.gtwise-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+.gtwise-buttons .gtwise-button {
+  margin-left: 8px;
+}
+.gtwise-button {
+  display: inline-block;
+  border-radius: 3px;
+  line-height: 1em;
+  min-height: 1em;
+  white-space: nowrap;
+  text-align: center;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 700;
+  padding: .75em 1em;
+  color: rgba(0, 0, 0, 0.6);
+  background: #E0E1E2;
+  text-decoration: none;
+  font-family: "Lato", "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+  outline: none;
+  vertical-align: baseline;
+  zoom: 1;
+  user-select: none;
+  transition: all 0.1s linear;
+}
+.gtwise-button.active,
+.gtwise-button:hover {
+  background-color: #C0C1C2;
+  color: rgba(0, 0, 0, 0.8);
+}
+.gtwise-button.primary {
+  color: #fff;
+  background-color: #2185D0;
+}
+.gtwise-button.primary:hover,
+.gtwise-button.primary.active {
+  color: #fff;
+  background-color: #1678c2;
+}
+
+form fieldset {
+  border: none;
+}
+form fieldset label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-size: 1em;
+  color: #666;
+}
+form fieldset select {
+  font-size: 1.1em;
+  width: 100%;
+  background-color: #fff;
+  border: none;
+  border-bottom: 2px solid #ddd;
+  padding: 0.5em 0.85em;
+  border-radius: 2px;
+}
+
+.gtwise-canvas-card-wraper {
+  margin: 40px 20px;
+}
+.gtwise-canvas-card {
+  background: #dddddd;
+  margin: auto;
+  page-break-before: auto;
+  page-break-after: always;
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 3px rgba(0, 0, 0, 0.12), 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.gtwise-canvas-card-top {
+	height: 50px;
+	width: 100%;
+}
+
+.gtwise-print-padding {
+	font-size: 1.1em;
+	width: 90%;
+	background-color: #fff;
+	border: none;
+	border-bottom: 2px solid #ddd;
+	padding: 0.5em 0.85em;
+	border-radius: 2px;
+}
+
+.gtwise-print-left-padding {
+	font-size: 1.1em;
+	width: 90%;
+	background-color: #fff;
+	border: none;
+	border-bottom: 2px solid #ddd;
+	padding: 0.5em 0.85em;
+	border-radius: 2px;
+}
+.gtwise-print-right-padding {
+	font-size: 1.1em;
+	width: 90%;
+	background-color: #fff;
+	border: none;
+	border-bottom: 2px solid #ddd;
+	padding: 0.5em 0.85em;
+	border-radius: 2px;
+}
+.gtwise-print-top-padding {
+	font-size: 1.1em;
+	width: 90%;
+	background-color: #fff;
+	border: none;
+	border-bottom: 2px solid #ddd;
+	padding: 0.5em 0.85em;
+	border-radius: 2px;
+}
+.gtwise-print-bottom-padding {
+	font-size: 1.1em;
+	width: 90%;
+	background-color: #fff;
+	border: none;
+	border-bottom: 2px solid #ddd;
+	padding: 0.5em 0.85em;
+	border-radius: 2px;
+}
