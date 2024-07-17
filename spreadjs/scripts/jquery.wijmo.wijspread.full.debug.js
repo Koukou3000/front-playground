@@ -3168,6 +3168,7 @@
         _onDataUpdated: function(event){},
         _onDataReceived: function(event)
         {
+			//console.log('onDataReceived')
             if(!event)
                 return;
             var data = event.data;
@@ -16643,6 +16644,8 @@
         },
         doResize: function()
         {
+			//console.log('doresize!')
+			//console.log(window.devicePixelRatio)
             var sheet = this._sheet;
             var canvas = sheet._getCanvas();
             if(!canvas || !canvas.parentNode)
@@ -16652,11 +16655,17 @@
             var deltx = 0;
             var delty = 0;
             canvas.style.display = "none";
-            canvas.width = Math.max(canvas.parentNode.clientWidth - deltx,0);
-            canvas.height = Math.max(canvas.parentNode.clientHeight - delty,0);
+			
+			let div =  document.getElementById('ssvp_vp')
+			let scale = div.style.transform ? div.style.transform.match(/(-?\d+)\.(\d+)/)[0] : 1
+			let paintingWidth = (canvas.parentNode.clientWidth - deltx) * devicePixelRatio * scale
+			let paintingHeight = (canvas.parentNode.clientHeight - delty) * devicePixelRatio * scale
+			
+            canvas.width = Math.max(paintingWidth, 0);
+            canvas.height = Math.max(paintingHeight, 0);
             canvas.style.display = "";
-            sheet._bounds.width = canvas.clientWidth || canvas.width;
-            sheet._bounds.height = canvas.clientHeight || canvas.height;
+            sheet._bounds.width = (canvas.clientWidth || canvas.width) * devicePixelRatio * scale;
+            sheet._bounds.height = (canvas.clientHeight || canvas.height) * devicePixelRatio * scale;
             sheet.invalidateLayout();
             sheet.repaint()
         },
@@ -21174,11 +21183,13 @@
         },
         _copyDoubleBufferRect: function(rect, destX, destY, clipRect)
         {
+			//console.log('_copyDoubleBufferRect')
             if(rect)
                 this._copyDoubleBuffer(rect.x,rect.y,rect.width,rect.height,destX,destY,clipRect)
         },
         translateScreen: function(srcX, srcY, srcW, srcH, destX, destY, destW, destH)
         {
+			console.log('translateScreen')
             try
             {
                 var ctx = this._getCtx();
@@ -41388,7 +41399,7 @@
                 $(document).bind(spliter_mouseup,function(e)
                 {
                     self.doMouseUp(e)
-                });
+         +       });
                 var sheet = this._spread.getActiveSheet();
                 if(sheet)
                     sheet._continueMouseUpBubble = true;
@@ -41429,8 +41440,10 @@
             if(canvas.parentNode.clientWidth === 0 || canvas.parentNode.clientHeight === 0)
                 return;
             canvas.style.display = cssNone;
-            canvas.width = Math.max(canvas.parentNode.clientWidth,0);
-            canvas.height = Math.max(canvas.parentNode.clientHeight,0);
+			//console.log(devicePixelRatio)
+			//console.log(canvas.parentNode)
+            canvas.width = Math.max(canvas.parentNode.clientWidth * devicePixelRatio,0);
+            canvas.height = Math.max(canvas.parentNode.clientHeight * devicePixelRatio,0);
             canvas.style.display = "";
             this._bounds.width = canvas.clientWidth;
             this._bounds.height = canvas.clientHeight;
@@ -41438,7 +41451,10 @@
         },
         paint: function(ctx, clipRect)
         {
+			//console.log(ctx);
+			//console.log(clipRect)
             var rect = this.getBounds();
+			
             if(clipRect)
             {
                 if(clipRect.x >= rect.x + rect.width)
@@ -41494,6 +41510,7 @@
             {
                 var x = rect.x >= 0 ? 0 : -rect.x;
                 var y = rect.y >= 0 ? 0 : -rect.y;
+				//console.log('cliprect',clipRect)
                 if(clipRect)
                 {
                     x = rect.x + clipRect.x;
@@ -41504,6 +41521,7 @@
                 var imgData = null;
                 try
                 {
+					//console.log('cliprect',clipRect)
                     if(!clipRect)
                     {
                         var canvas = this._getCanvas();
@@ -41513,12 +41531,15 @@
                             imgData = bufferCtx.getImageData(x,y,Math.max(rect.width - x,0),Math.max(rect.height - y,0))
                     }
                     else
-                        imgData = bufferCtx.getImageData(clipRect.x,clipRect.y,clipRect.width,clipRect.height)
+                        imgData = bufferCtx.getImageData(clipRect.x, clipRect.y, clipRect.width, clipRect.height)
+					//console.log(imgData)
+					
                 }
                 catch(ex)
                 {
                     return
                 }
+				//console.log(rect)
                 x = rect.x >= 0 ? rect.x : 0;
                 y = rect.y >= 0 ? rect.y : 0;
                 if(imgData && rect.width > 0 && rect.height > 0)
