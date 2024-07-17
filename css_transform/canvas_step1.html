@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>context != pen</title>
+</head>
+
+<body>
+  <div><button onclick="draw()">draw</button></div>
+  <canvas id="1"></canvas>
+</body>
+
+</html>
+<script>
+  function draw() {
+    console.log('draw.')
+    var dpr = window.devicePixelRatio || 1;
+    var canvas = document.getElementById('1')
+   
+    canvas.style.width = 400 +'px'
+    canvas.style.height = 400 +'px'
+    canvas.width = parseFloat(canvas.style.width) * dpr
+    canvas.height = parseFloat(canvas.style.height) * dpr
+    
+    console.log(canvas.style.height, canvas.height)
+
+    canvas.style.border = '1px solid black'
+
+    var ctx = canvas.getContext('2d')
+   
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(100, 100);
+    ctx.stroke();
+  }
+</script>
