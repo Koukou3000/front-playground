@@ -41451,8 +41451,8 @@
         },
         paint: function(ctx, clipRect)
         {
-			//console.log(ctx);
-			//console.log(clipRect)
+			console.log(ctx);
+			console.log(clipRect)
             var rect = this.getBounds();
 			
             if(clipRect)
