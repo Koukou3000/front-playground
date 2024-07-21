@@ -3168,7 +3168,6 @@
         _onDataUpdated: function(event){},
         _onDataReceived: function(event)
         {
-			//console.log('onDataReceived')
             if(!event)
                 return;
             var data = event.data;
@@ -3187,6 +3186,7 @@
             if(this.parent)
                 this.parent._doResize();
             this.invalidateLayout();
+			
             this.repaint()
         },
         _getProperties: function(t)
@@ -3624,6 +3624,7 @@
                     if(!value && this._layoutSuspended <= 0)
                     {
                         this.invalidateLayout();
+						
                         this.repaint()
                     }
                 }
@@ -5687,6 +5688,7 @@
             if(row !== topRow || col !== leftColumn)
             {
                 this.invalidateLayout();
+				
                 this.repaint()
             }
         },
@@ -6264,6 +6266,7 @@
                     var t = fn.apply(context,arguments);
                     if(!context._paintSuspended)
                     {
+						
                         if(typeof context.invalidateLayout === const_function)
                             context.invalidateLayout();
                         if(typeof context.repaint === const_function)
@@ -6409,11 +6412,15 @@
         },
         _setHost: function(host)
         {
+			//console.log('[GcSheet] _setHost 6411')
+			
             var canvas = document.createElement("canvas");
             canvas.setAttribute("id",host.getAttribute("id") + "_vp");
             $(canvas).html("You need a browser which full supports HTML5 Canvas to run SpreadJS");
-            host.appendChild(canvas);
+            
+			host.appendChild(canvas);
             canvas.gcObject = true;
+			
             if(this._canvas)
             {
                 $(this._canvas).unbind(_mouseDown_gcSheet);
@@ -9373,6 +9380,7 @@
                 });
                 this._scrollTopRow = row;
                 this.invalidateLayout();
+			
                 this.repaint();
                 this._syncVScrollbarPosition();
                 return true
@@ -9390,6 +9398,7 @@
                 });
                 this._scrollLeftCol = col;
                 this.invalidateLayout();
+				
                 this.repaint();
                 this._syncHScollbarPosition();
                 return true
@@ -11872,6 +11881,7 @@
             this._resumeInvalidate(arg);
             sheet.invalidateLayout();
             sheet.repaint();
+			
             sheet._trigger(GrapeCity.UI.Events.ColumnWidthChanged,{
                 sheet: sheet,
                 sheetName: sheet._name,
@@ -11970,6 +11980,7 @@
             this._resumeInvalidate(arg);
             sheet.invalidateLayout();
             sheet.repaint();
+			
             sheet._trigger(GrapeCity.UI.Events.ColumnWidthChanged,{
                 sheet: sheet,
                 sheetName: sheet._name,
@@ -12039,6 +12050,7 @@
             this._resumeInvalidate(arg);
             sheet.invalidateLayout();
             sheet.repaint();
+			
             sheet._trigger(GrapeCity.UI.Events.RowHeightChanged,{
                 sheet: sheet,
                 sheetName: sheet._name,
@@ -12229,7 +12241,7 @@
             sheet.isPaintSuspended(oldState);
             this._resumeInvalidate(arg);
             sheet.invalidateLayout();
-            sheet.repaint()
+            sheet.repaint();
         }
     };
     ColumnAutoFitUndoAction.prototype.saveState = function()
@@ -12453,7 +12465,8 @@
             sheet.isPaintSuspended(oldState);
             this._resumeInvalidate(arg);
             sheet.invalidateLayout();
-            sheet.repaint()
+            sheet.repaint();
+			
         }
     };
     RowAutoFitUndoAction.prototype.saveState = function()
@@ -12613,6 +12626,7 @@
             sheet.colRangeGroup.group(index,count);
             this._resumeInvalidate(arg);
             sheet.invalidateLayout();
+			
             sheet.repaint()
         }
     };
@@ -12677,6 +12691,7 @@
             this._resumeInvalidate(arg);
             sheet.invalidateLayout();
             sheet.repaint()
+			
         }
         return ret
     };
@@ -13366,6 +13381,7 @@
                 sheet.invalidateLayout();
                 sheet._dragRect = {};
                 sheet.repaint()
+				
             }
         }
     };
@@ -16644,8 +16660,8 @@
         },
         doResize: function()
         {
-			//console.log('doresize!')
-			//console.log(window.devicePixelRatio)
+			console.log('[sheet] doResize 16665')
+			
             var sheet = this._sheet;
             var canvas = sheet._getCanvas();
             if(!canvas || !canvas.parentNode)
@@ -16655,17 +16671,11 @@
             var deltx = 0;
             var delty = 0;
             canvas.style.display = "none";
-			
-			let div =  document.getElementById('ssvp_vp')
-			let scale = div.style.transform ? div.style.transform.match(/(-?\d+)\.(\d+)/)[0] : 1
-			let paintingWidth = (canvas.parentNode.clientWidth - deltx) * devicePixelRatio * scale
-			let paintingHeight = (canvas.parentNode.clientHeight - delty) * devicePixelRatio * scale
-			
-            canvas.width = Math.max(paintingWidth, 0);
-            canvas.height = Math.max(paintingHeight, 0);
+            canvas.width = Math.max(canvas.parentNode.clientWidth - deltx,0);
+            canvas.height = Math.max(canvas.parentNode.clientHeight - delty,0);
             canvas.style.display = "";
-            sheet._bounds.width = (canvas.clientWidth || canvas.width) * devicePixelRatio * scale;
-            sheet._bounds.height = (canvas.clientHeight || canvas.height) * devicePixelRatio * scale;
+            sheet._bounds.width = canvas.clientWidth || canvas.width;
+            sheet._bounds.height = canvas.clientHeight || canvas.height;
             sheet.invalidateLayout();
             sheet.repaint()
         },
@@ -19432,6 +19442,7 @@
             }
             sheet.invalidateLayout();
             sheet.repaint();
+			
             sheet._syncVScrollbarPosition()
         },
         waittime: 100,
@@ -21061,19 +21072,31 @@
             this._sheet = sheet
         },
         _getCtx: function()
-        {
+        {	
+			console.log('放大 _getCtx 21076')
+			let dpr = window.devicePixelRatio || 1
+			console.log('放大Ctx canvas + ctx')
             this.ctx = null;
             var sheet = this._sheet;
             var c = sheet._getCanvas();
+
             if(c)
             {
+				// 放大canvas
+				c.style.width = c.width + 'px'
+				c.style.height = c.height + 'px'
+				c.width *= dpr
+				c.height *= dpr
+			
                 if(!c.getContext && GrapeCity.UI._isSilverlightCanvas())
                     if(!c.getContext)
                         return;
                 if(!c.getContext && typeof window.FlashCanvas !== const_undefined)
                     window.FlashCanvas.initElement(c);
-                if(c.getContext)
+                if(c.getContext){
                     this.ctx = c.getContext('2d')
+					this.ctx.scale(dpr, dpr) // 放大ctx
+				}
             }
             if(this.ctx)
                 this.ctx.name = "userContext";
@@ -21081,17 +21104,29 @@
         },
         _getBufferCtx: function()
         {
+			console.log('放大 _getBufferCtx 21111')
+			let dpr = window.devicePixelRatio || 1
+			console.log('放大bufferCtx canvas + ctx')
             var sheet = this._sheet;
             var rect = sheet._bounds;
             var buffer = this.buffer;
-            if(!buffer || buffer.width !== rect.width || buffer.height !== rect.height)
-            {
+			
+            //if(!buffer || buffer.width !== rect.width || buffer.height !== rect.height) {
+			if(!buffer || buffer.width/dpr !== rect.width || buffer.height/dpr !== rect.height) {
                 this.buffer = buffer = document.createElement("canvas");
-                buffer.width = rect.width;
-                buffer.height = rect.height
+				buffer.width = rect.width * dpr;
+                buffer.height = rect.height * dpr;
+				
+				buffer.style.width = rect.width + 'px';
+				buffer.style.height = rect.height + 'px';
             }
-            if(buffer.getContext)
-                this.bufferCtx = buffer.getContext('2d');
+	
+
+			
+            if(buffer.getContext){
+				this.bufferCtx = buffer.getContext('2d');
+			}
+                
             else if(GrapeCity.UI._isSilverlightCanvas())
                 if(!buffer.getContext)
                     return;
@@ -21109,6 +21144,7 @@
                 this.bufferCtx.beginPath();
                 this.bufferCtx.font = this._getZoomFont(this._getDefaultFont());
                 this.bufferCtx.name = "bufferContext"
+				this.bufferCtx.scale(dpr, dpr);
             }
             return this.bufferCtx
         },
@@ -21149,47 +21185,61 @@
         },
         _copyDoubleBuffer: function(srcX, srcY, srcW, srcH, destX, destY, clipRect)
         {
+			console.log('_copyDoubleBuffer 21192')
+			let dpr = window.devicePixelRatio || 1
+			
+			
             if(!GrapeCity.UI._useDoubleBuffer())
                 return;
             if(srcX !== undefined && srcX !== null && srcY !== undefined && srcY !== null && srcW > 0 && srcH > 0)
             {
+				// 拿到两个ctx
                 var bufferCtx = this._getBufferCtx();
-                var ctx = this._getCtx();
+				var ctx = this._getCtx();
+				
                 var imgData = null;
+				
                 if(this._sheet._canvas)
                     if(clipRect)
                     {
+						
                         var rect = new GrapeCity.UI.Rect(srcX,srcY,srcW,srcH);
                         var intersectRect = rect.getIntersectRect(clipRect);
                         if(intersectRect)
                         {
                             srcX = intersectRect.x;
                             srcY = intersectRect.y;
-                            imgData = bufferCtx.getImageData(intersectRect.x,intersectRect.y,intersectRect.width,intersectRect.height)
+                            //imgData = bufferCtx.getImageData(intersectRect.x*dpr, intersectRect.y*dpr, intersectRect.width*dpr, intersectRect.height*dpr)
+							imgData = bufferCtx.getImageData(intersectRect.x, intersectRect.y, intersectRect.width, intersectRect.height)
                         }
                         else
                             return
                     }
-                    else
-                        imgData = bufferCtx.getImageData(srcX,srcY,srcW,srcH);
+                    else{
+						//imgData = bufferCtx.getImageData(srcX*dpr, srcY*dpr, srcW*dpr , srcH*dpr);
+						imgData = bufferCtx.getImageData(srcX, srcY, srcW , srcH);
+					}
+                        
                 else
-                    imgData = bufferCtx.getImageData(0,0,srcW,srcH);
+                    imgData = bufferCtx.getImageData(0,0, srcW , srcH);
                 if(destX === undefined || destX === null)
                     destX = srcX;
                 if(destY === undefined || destY === null)
                     destY = srcY;
-                ctx.putImageData(imgData,destX,destY)
+				
+				//console.log('放大 context')
+				//destX *= dpr
+				//destY *= dpr
+                ctx.putImageData(imgData, destX, destY)
             }
         },
         _copyDoubleBufferRect: function(rect, destX, destY, clipRect)
         {
-			//console.log('_copyDoubleBufferRect')
             if(rect)
                 this._copyDoubleBuffer(rect.x,rect.y,rect.width,rect.height,destX,destY,clipRect)
         },
         translateScreen: function(srcX, srcY, srcW, srcH, destX, destY, destW, destH)
         {
-			console.log('translateScreen')
             try
             {
                 var ctx = this._getCtx();
@@ -21285,34 +21335,46 @@
         },
         paint: function(ctx, clipRect)
         {
+			console.log('paint 21339')
+			let dpr = window.devicePixelRatio || 1
+			
             if(!ctx)
                 return;
             var sheet = this._sheet;
             var rect = sheet._bounds;
+			
+			
             if(!clipRect)
                 clipRect = rect;
+			
+			
             var useDoubleBuffer = GrapeCity.UI._useDoubleBuffer();
             var bufferCtx = useDoubleBuffer ? this._getBufferCtx() : ctx;
+			
             if(!bufferCtx)
             {
-                useDoubleBuffer = false;
+                useDoubleBuffer = false; //没获取到，那就还是用ctx
                 bufferCtx = ctx
             }
+			
             if(sheet._dirty)
             {
                 sheet._dirty = false;
                 if(useDoubleBuffer)
                 {
-                    bufferCtx.clearRect(clipRect.x,clipRect.y,clipRect.width,clipRect.height);
+                    bufferCtx.clearRect(clipRect.x * dpr, clipRect.y * dpr, clipRect.width * dpr, clipRect.height * dpr);
+					
                     bufferCtx.translate(-rect.x,-rect.y)
                 }
                 this.paintSheet(bufferCtx,clipRect);
                 if(useDoubleBuffer)
                     bufferCtx.translate(rect.x,rect.y)
             }
+			
             if(useDoubleBuffer)
             {
                 this._copyDoubleBufferRect(clipRect);
+
                 if(!sheet._hoverCell && sheet._canvas)
                 {
                     var layout = sheet._getSheetLayout();
@@ -21323,7 +21385,7 @@
                             if(!clipRect || rect.intersectRect(clipRect))
                             {
                                 ctx.save();
-                                ctx.rect(rect.x,rect.y,rect.width,rect.height);
+                                ctx.rect(rect.x * dpr,rect.y * dpr,rect.width * dpr,rect.height * dpr);
                                 ctx.clip();
                                 ctx.beginPath();
                                 this.paintSelection(ctx,r,c,clipRect);
@@ -21331,12 +21393,15 @@
                                 ctx.restore()
                             }
                         }
-                    this.paintResizeLine(ctx,clipRect)
+                    this.paintResizeLine(ctx, clipRect)
                 }
             }
         },
         paintSheet: function(ctx, clipRect)
         {
+			console.log('paintsheet.....')
+			let dpr = window.devicePixelRatio || 1
+			
             var sheet = this._sheet;
             var r,
                 c;
@@ -21344,8 +21409,9 @@
                 return;
             var rect = sheet._bounds;
             ctx.save();
+			ctx.scale(dpr, dpr)
             if(!clipRect)
-                ctx.rect(rect.x,rect.y,rect.width,rect.height);
+                ctx.rect(rect.x*dpr, rect.y*dpr, rect.width*dpr, rect.height*dpr);
             else
                 ctx.rect(clipRect.x,clipRect.y,clipRect.width,clipRect.height);
             ctx.clip();
@@ -21357,6 +21423,7 @@
             for(c = 0; c < 2; c++)
                 if(!clipRect || layout.colHeaderRect(c).intersectRect(clipRect))
                     this.paintColHeader(ctx,c,clipRect);
+				
             for(r = 0; r < 2; r++)
             {
                 if(!clipRect || layout.rowHeaderRect(r).intersectRect(clipRect))
@@ -21583,6 +21650,8 @@
         },
         paintResizeLine: function(ctx, clipRect)
         {
+			let dpr = window.devicePixelRatio || 1
+			console.log('paintResizeLine')
             var x,
                 y;
             var sheet = this._sheet;
@@ -21602,20 +21671,20 @@
                 if(resizeInfo.action === "sizeRow")
                     for(x = sheetLayout.x; x < sheetLayout.x + sheetLayout.width; x += 2)
                     {
-                        y = Math.max(0,resizeInfo.startY - 0.5);
-                        ctx.moveTo(x,y);
-                        ctx.lineTo(x + 1,y);
-                        ctx.moveTo(x,resizeInfo.movingY - 0.5);
-                        ctx.lineTo(x + 1,resizeInfo.movingY - 0.5)
+                        y = Math.max(0, (resizeInfo.startY - 0.5));
+                        ctx.moveTo(x, y);
+                        ctx.lineTo((x+1), y);
+                        ctx.moveTo(x, (resizeInfo.movingY - 0.5));
+                        ctx.lineTo((x+1), (resizeInfo.movingY - 0.5))
                     }
                 else
                     for(y = sheetLayout.y; y < sheetLayout.y + sheetLayout.height; y += 2)
                     {
-                        x = Math.max(0,resizeInfo.startX - 0.5);
-                        ctx.moveTo(x,y);
-                        ctx.lineTo(x,y + 1);
-                        ctx.moveTo(resizeInfo.movingX - 0.5,y);
-                        ctx.lineTo(resizeInfo.movingX - 0.5,y + 1)
+                        x = Math.max(0,(resizeInfo.startX - 0.5));
+                        ctx.moveTo(x, y);
+                        ctx.lineTo(x, (y + 1));
+                        ctx.moveTo((resizeInfo.movingX - 0.5), y);
+                        ctx.lineTo((resizeInfo.movingX - 0.5), (y + 1))
                     }
                 ctx.stroke();
                 ctx.restore()
@@ -21658,7 +21727,7 @@
         },
         paintColHeader: function(ctx, c, clipRect)
         {
-            this.paintViewportImp(ctx,-1,c,GrapeCity.UI.SheetArea.colHeader,clipRect)
+            this.paintViewportImp(ctx, -1, c, GrapeCity.UI.SheetArea.colHeader, clipRect)
         },
         paintRowHeader: function(ctx, r, clipRect)
         {
@@ -21855,6 +21924,7 @@
         },
         paintViewportImp: function(ctx, rowViewportIndex, colViewportIndex, sheetArea, clipRect)
         {
+			let dpr = window.devicePixelRatio || 1
             ctx.beginPath();
             var sheet = this._sheet;
             var sheetLayout = sheet._getSheetLayout();
@@ -21866,12 +21936,14 @@
             var needRestoreContext = false;
             if(useDoubleBuffer && rowLayouts && rowLayouts.length > 0 && colLayouts && colLayouts.length > 0)
             {
+				
                 cellsRect.x = colLayouts[0].x;
                 cellsRect.y = rowLayouts[0].y;
                 cellsRect.width = colLayouts[colLayouts.length - 1].x + colLayouts[colLayouts.length - 1].width - cellsRect.x;
                 cellsRect.height = rowLayouts[rowLayouts.length - 1].y + rowLayouts[rowLayouts.length - 1].height - cellsRect.y;
                 ctx.save();
-                ctx.rect(cellsRect.x,cellsRect.y,cellsRect.width,cellsRect.height);
+                //ctx.rect(cellsRect.x*dpr, cellsRect.y*dpr, cellsRect.width*dpr, cellsRect.height*dpr);
+				ctx.rect(cellsRect.x, cellsRect.y, cellsRect.width, cellsRect.height);
                 ctx.clip();
                 ctx.beginPath();
                 needRestoreContext = true;
@@ -37078,6 +37150,7 @@
     $.widget("wijmo.wijsheet",{
         _init: function()
         {
+			console.log('37070, wijimo.wijisheet _init')
             var host = this.element.context;
             if(host)
             {
@@ -37090,6 +37163,7 @@
                 sheet.applyOptions(this.options);
                 sheet.invalidateLayout();
                 sheet.repaint()
+				
             }
         },
         destroy: function()
@@ -37098,6 +37172,7 @@
         },
         repaint: function()
         {
+			
             this.options.sheet.repaint()
         },
         sheet: function()
@@ -39597,6 +39672,7 @@
                 };
                 this.initPaint = function()
                 {
+					
                     var isStandardCanvas = GrapeCity.UI._isStandardCanvas();
                     if(isStandardCanvas)
                         return;
@@ -40049,22 +40125,35 @@
         },
         _doResize: function()
         {
-            var scrollbarSize = this._scrollbarSize;
-            var host = this._host;
+            var scrollbarSize = this._scrollbarSize; 
+            var host = this._host; // body?
+			
             if(!host)
                 return;
-            var availableWidth = $(this._vp).width();
+            var availableWidth = $(this._vp).width();// canvas
+
+			
             var w = host.clientWidth;
             var h = host.clientHeight;
             var tabStripWidth = this._getActualTabStripRatio() * availableWidth;
             this._tabs.style.width = "" + (tabStripWidth - 1) + pixel;
+			
+			// ViewPort
             this._vp.style.width = "" + (w - scrollbarSize) + pixel;
             this._vp.style.height = "" + (h - scrollbarSize) + pixel;
+			
+			
+			
+			// verticalStrip
             this._vs.style.width = "" + scrollbarSize + pixel;
             this._vs.style.height = this._vp.style.height;
             var hsWidth = w - (this._tabStripVisible ? tabStripWidth : 0) - scrollbarSize;
+			
+			// horizontalStrip
             this._hs.style.width = "" + (hsWidth > 0 ? hsWidth : 1) + pixel;
             this._hs.style.height = "" + scrollbarSize + pixel;
+			
+			
             var sheet = this.getActiveSheet();
             if(sheet)
             {
@@ -40127,6 +40216,7 @@
             ssHbar.unbind(e_wijspreadpanelexscrolling,this._hscrollDelegate);
             ssHbar.bind(e_wijspreadpanelexscrolling,this._hscrollDelegate);
             ssHbar.wijspreadpanelex(cmd_refresh);
+			
             if(sheet)
                 sheet._eventHandler.doResize();
             if(this._tabStripVisible === true)
@@ -40134,6 +40224,7 @@
             else
                 $(this._tabs).hide();
             this._tab.doResize()
+			
         },
         _doTabHSResize: function()
         {
@@ -40234,6 +40325,7 @@
         {
             this._tab.repaint();
             var sheet = this.getActiveSheet();
+			
             if(sheet)
             {
                 sheet.invalidateLayout();
@@ -40356,6 +40448,7 @@
                 this._doResize()
             }
             this._tab.repaint()
+			
         },
         removeSheet: function(index)
         {
@@ -40384,6 +40477,7 @@
             if(this._tab._firstTab < 0)
                 this._tab._firstTab = 0;
             this._tab.repaint()
+			
         },
         clearSheets: function()
         {
@@ -40396,6 +40490,7 @@
             this._activeSheetIndex = -1;
             this._tab._firstTab = 0;
             this._tab.repaint()
+			
         },
         getSheet: function(index)
         {
@@ -41050,6 +41145,7 @@
             {
                 this._firstTab = t;
                 this.repaint()
+				
             }
         },
         _hitTest: function(left, top)
@@ -41163,6 +41259,7 @@
                         else if(this._activeIndex > this._firstTab && this._activePos + this._tabSizes[this._activeIndex] > this.getBounds().width - this._resizeBarWidth)
                             this._firstTab++;
                         this.repaint()
+						
                     }
                 }
                 else if(hitTestInfo.element === hit_element_newTab)
@@ -41202,6 +41299,7 @@
                             this._firstTab++
                         }
                         this.repaint()
+						
                     }
                 }
             return false
@@ -41244,6 +41342,7 @@
                 {
                     this.canvas.style.cursor = cursor_default;
                     this.repaint();
+					
                     return false
                 }
                 else if(hitTestInfo.element === hit_element_resizebar)
@@ -41258,6 +41357,7 @@
                     else if(hitTestInfo.element === hit_element_newTab)
                         this._hoverTab = -2
                 }
+				
                 this.repaint()
             }
             return false
@@ -41287,6 +41387,7 @@
             this._hoverTab = -1;
             if(this._hoverNavButton !== oldNav || this._hoverTab !== oldTab)
                 this.repaint();
+			
             return false
         },
         doMouseDbClick: function(e)
@@ -41399,7 +41500,7 @@
                 $(document).bind(spliter_mouseup,function(e)
                 {
                     self.doMouseUp(e)
-         +       });
+                });
                 var sheet = this._spread.getActiveSheet();
                 if(sheet)
                     sheet._continueMouseUpBubble = true;
@@ -41430,20 +41531,27 @@
                     window.FlashCanvas.initElement(c);
                 if(c.getContext)
                     this.paint(c.getContext(dc_2d),clipRect)
+				
             }
         },
         doResize: function()
         {
+			//console.log('[_GcTab] doResize 41427 ')
             var canvas = this._getCanvas();
+			let dpr = window.devicePixelRatio || 1;
+			//console.log(dpr)
+
             if(!canvas || !canvas.parentNode)
                 return;
             if(canvas.parentNode.clientWidth === 0 || canvas.parentNode.clientHeight === 0)
                 return;
             canvas.style.display = cssNone;
-			//console.log(devicePixelRatio)
-			//console.log(canvas.parentNode)
-            canvas.width = Math.max(canvas.parentNode.clientWidth * devicePixelRatio,0);
-            canvas.height = Math.max(canvas.parentNode.clientHeight * devicePixelRatio,0);
+            //canvas.width = Math.max(canvas.parentNode.clientWidth ,0);
+			//canvas.height = Math.max(canvas.parentNode.clientHeight ,0);
+			canvas.width = Math.max(canvas.parentNode.clientWidth,0);
+            canvas.height = Math.max(canvas.parentNode.clientHeight,0);
+			
+			
             canvas.style.display = "";
             this._bounds.width = canvas.clientWidth;
             this._bounds.height = canvas.clientHeight;
@@ -41451,9 +41559,9 @@
         },
         paint: function(ctx, clipRect)
         {
-			console.log(ctx);
-			console.log(clipRect)
+		
             var rect = this.getBounds();
+			let dpr = window.devicePixelRatio || 1
 			
             if(clipRect)
             {
@@ -41478,15 +41586,23 @@
             }
             var bufferCtx,
                 useDoubleBuffer = GrapeCity.UI._useDoubleBuffer();
+			
             if(useDoubleBuffer)
             {
                 var self = this,
                     buffer = this.buffer;
                 if(!buffer || buffer.width !== rect.width || buffer.height !== rect.height)
                 {
+					
                     this.buffer = buffer = document.createElement(tag_canvas);
-                    buffer.width = rect.width;
-                    buffer.height = rect.height
+					
+                    //buffer.width = rect.width
+                    //buffer.height = rect.height
+					//buffer.width = rect.width * dpr;
+                    buffer.height = rect.height * dpr;
+					
+					//console.log('[_GcTab]现在按这种尺寸绘制: ', buffer.width,'*',buffer.height)
+					//console.log(this._getCanvas().style.transform)
                 }
                 if(!buffer.getContext)
                     if(GrapeCity.UI._isSilverlightCanvas())
@@ -41510,7 +41626,6 @@
             {
                 var x = rect.x >= 0 ? 0 : -rect.x;
                 var y = rect.y >= 0 ? 0 : -rect.y;
-				//console.log('cliprect',clipRect)
                 if(clipRect)
                 {
                     x = rect.x + clipRect.x;
@@ -41521,7 +41636,6 @@
                 var imgData = null;
                 try
                 {
-					//console.log('cliprect',clipRect)
                     if(!clipRect)
                     {
                         var canvas = this._getCanvas();
@@ -41531,20 +41645,18 @@
                             imgData = bufferCtx.getImageData(x,y,Math.max(rect.width - x,0),Math.max(rect.height - y,0))
                     }
                     else
-                        imgData = bufferCtx.getImageData(clipRect.x, clipRect.y, clipRect.width, clipRect.height)
-					//console.log(imgData)
-					
+                        imgData = bufferCtx.getImageData(clipRect.x,clipRect.y,clipRect.width,clipRect.height)
                 }
                 catch(ex)
                 {
                     return
                 }
-				//console.log(rect)
                 x = rect.x >= 0 ? rect.x : 0;
                 y = rect.y >= 0 ? rect.y : 0;
                 if(imgData && rect.width > 0 && rect.height > 0)
                     ctx.putImageData(imgData,x,y)
             }
+			//console.log('[_GcTab] paint ends')
         },
         _getCanvas: function()
         {
@@ -41802,14 +41914,20 @@
     $.widget("wijmo.wijspread",{
         _init: function()
         {
+			console.log('41785 _init')
             var host = this.element.context;
+			
+			
             if(host)
             {
                 var ss = new GrapeCity.UI.GcSpread(host.id,this.options.sheetCount);
                 this.element.data("spread",ss);
                 host.setAttribute("gcUIElement","gcSpread");
+				
                 GrapeCity.UI.Global.prototype._createDummyObjects();
+				
                 var options = this.options;
+				console.log(options)
                 if(typeof options.name === const_string && options.name.length > 0)
                     ss.name = options.name;
                 if(typeof options.font === const_string && options.font.length > 0)
@@ -41830,6 +41948,8 @@
                     ss._tabStripRatio = options.tabStripRatio;
                 if(typeof options.activeSheetIndex === const_number)
                     ss._activeSheetIndex = options.activeSheetIndex;
+				
+				//console.log(GrapeCity.UI._isStandardCanvas())
                 if(!GrapeCity.UI._isStandardCanvas() && GrapeCity.UI._isSilverlightCanvas())
                 {
                     var canvas = document.createElement("canvas");
@@ -41848,6 +41968,7 @@
                 }
                 else
                     ss._setHost(host);
+					
                 if(options.sheets && options.sheets.length > 0)
                 {
                     var sheet;
@@ -41881,7 +42002,7 @@
                 return;
             var control = this.spread().canvas.firstChild;
             if(control && control.loaded)
-            {
+				{
                 var spreadsheetObject = control.Content.SpreadsheetObject;
                 this.spread().attachSpreadsheetObject(spreadsheetObject)
             }
@@ -41904,12 +42025,13 @@
         },
         repaint: function()
         {
+			
             this.spread.repaint()
         },
         options: {
             sheetCount: 1,
             name: "",
-            font: "10pt Arial",
+            font: "10pt Consolas",
             _allowUserZoom: true,
             _allowUserResize: true,
             tabStripVisible: true,
@@ -43220,6 +43342,7 @@
         },
         _getCanvasSize: function(availableSize)
         {
+			
             var w = availableSize.Width - this._leftSpace() - this._rightSpace();
             w = Math.max(w,0);
             var h = availableSize.Height - this._topSpace() - this._bottomSpace();
